@@ -76,7 +76,7 @@ pp auth accept pap chap
 pp always-on on
 ip pp secure filter name dk_pp_lan2
 ip pp address 153.142.244.124/32
-pp auth myname w3102kwz@bizf.ocn.ne.jp sdjLSa76
+pp auth myname xxxxx@bizf.ocn.ne.jp xxxxx
 ppp lcp mru on 1454
 ppp ccp type none
 ip pp rip send off
