@@ -1,0 +1,15 @@
+terminal:
+  policy: auto # auto | always | never
+  allow:
+    - "git pull origin main"
+    - "git add ."
+    - "git commit -m *"
+    - "git push origin main"
+    - "npm run test"
+    - "git status"
+    - "ls -la"
+    
+  deny:
+    - "rm -rf /"
+    - "git push origin main" # pushは人間がやる
+    - "aws text-*" # AWSコマンドの一部を制限
