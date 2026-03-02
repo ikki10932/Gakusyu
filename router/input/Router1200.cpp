@@ -6965,7 +6965,7 @@ BOOL CDkRouter1200::PutTunnel()
 			if (!_Put(szBuf))	return FALSE;
 			wsprintf(szBuf, "ipsec ike pfs %d on", nSetuzokuNo);
 			if (!_Put(szBuf))	return FALSE;
-			wsprintf(szBuf, "ipsec ike pre-shared-key %d text wh1+eb0@rd", nSetuzokuNo);
+			wsprintf(szBuf, "ipsec ike pre-shared-key %d text xxxxxx", nSetuzokuNo);
 			if (!_Put(szBuf))	return FALSE;
 			wsprintf(szBuf, "ipsec ike remote address %d %s", nSetuzokuNo, GetIpB2C(m_sRouter.ncon[n].fixIp));
 			if (!_Put(szBuf))	return FALSE;
