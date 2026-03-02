@@ -1,0 +1,790 @@
+#	DK-ROUTER-CONFIGURATION Ver A1.000
+#	RTX830 Rev.15.02.31
+
+# System configuration
+
+clear configuration
+no schedule at 1
+no schedule at 2
+no schedule at 3
+no schedule at 4
+login password *
+administrator password *
+snmp syslocation "Hall 23999185.5123"
+security class 1 on on
+console info off
+
+ip routing process normal
+ip route 10.142.65.0/24 gateway tunnel 2
+ip route 10.142.165.0/24 gateway tunnel 2
+ip route 10.145.0.0/16 gateway tunnel 2
+ip route 10.141.0.0/16 gateway tunnel 2
+
+ip route 172.18.0.0/16 gateway 172.16.5.11
+ip route 61.114.182.53 gateway pp 5 metric 2
+ip route 61.114.182.54 gateway pp 5 metric 2
+ip route 61.114.186.0/25 gateway pp 5 metric 2
+ip route 61.114.177.148 gateway pp 5 metric 2
+ip route 202.229.106.177 gateway pp 5 metric 2
+ip route 172.31.191.0/24 gateway tunnel 1
+ip route 61.114.186.111 gateway pp 5
+ip route 172.31.65.0/24 gateway tunnel 1
+ip route 52.197.151.142 gateway pp 5
+ip route 0.0.0.0/32 gateway tunnel 3
+ip route 61.114.186.110 gateway pp 5
+ip route 153.142.244.126 gateway pp 5
+ip route 10.2.0.0/16 gateway tunnel 6
+ip route 153.142.244.125 gateway pp 5
+ip route 10.1.0.0/16 gateway tunnel 7
+ip route default gateway pp 5 metric 2
+ip route 10.0.192.0/24 gateway pp anonymous metric 2
+ip route 10.0.208.0/24 gateway tunnel 5
+ip route 10.0.224.0/24 gateway tunnel 5
+ip icmp parameter-problem send off
+ip icmp echo-reply send-only-linkup on
+
+# LAN/IP configuration
+
+ip lan1 address 172.16.5.1/16
+rip use on
+ip lan1 rip send on version 2
+ip lan1 rip receive on version 2
+ip lan1 proxyarp on
+ip lan1 secure filter name dk_lan1
+ip lan1 intrusion detection in on reject=on
+ip lan2 rip send off
+ip lan2 rip receive off
+ip lan2 proxyarp off
+ip lan2 intrusion detection in on reject=on
+
+# PP configuration
+
+pp disable all
+
+### PP 5 ###
+
+pp select 5
+pp backup none
+pppoe use lan2
+pppoe auto connect on
+pppoe auto disconnect on
+pppoe disconnect time off
+ip pp mtu 1454
+ip pp intrusion detection in on reject=on
+ip pp nat descriptor 2000
+pp auth accept pap chap
+pp always-on on
+ip pp secure filter name dk_pp_lan2
+ip pp address 153.142.244.124/32
+pp auth myname w3102kwz@bizf.ocn.ne.jp sdjLSa76
+ppp lcp mru on 1454
+ppp ccp type none
+ip pp rip send off
+ip pp rip receive off
+pp enable 5
+
+### PP anonymous ###
+
+no ip route 10.0.192.0/20
+pp select anonymous
+no ip pp rip send
+no ip pp rip receive
+no ip pp nat descriptor
+no pp auth username ccsupport
+pp bind tunnel16-tunnel20
+pp auth request mschap-v2
+pp auth username w8LeUYeGaZgstZXs 00393792
+ppp ipcp ipaddress on
+ppp ipcp msext on
+ip pp remote address pool 172.16.60.16-172.16.60.20
+ip pp mtu 1258
+pp enable anonymous
+tunnel disable all
+
+### TUNNEL 1 ###
+
+tunnel select 1
+tunnel encapsulation ipsec
+ipsec tunnel 101
+ipsec sa policy 101 1 esp 3des-cbc sha-hmac
+ipsec ike duration ipsec-sa 1 28800
+ipsec ike encryption 1 3des-cbc
+ipsec ike group 1 modp1024
+ipsec ike hash 1 sha
+ipsec ike keepalive use 1 on heartbeat 60 10
+ipsec ike local address 1 172.16.5.1
+ipsec ike pfs 1 on
+ipsec ike pre-shared-key 1 text 153.142.244.124
+ipsec ike remote address 1 61.114.186.111
+tunnel backup tunnel 4 switch-interface=on
+ip tunnel rip send off
+ip tunnel rip receive off
+ip tunnel nat descriptor 2012
+tunnel enable 1
+
+### TUNNEL 3 ###
+
+tunnel select 3
+ipsec tunnel 103
+ipsec ike duration ipsec-sa 3 10800
+ipsec ike duration isakmp-sa 3 3600
+ipsec ike encryption 3 aes-cbc
+ipsec ike group 3 modp768 modp1024
+ipsec ike hash 3 sha
+ipsec ike keepalive use 3 off
+ipsec ike local address 3 172.16.5.1
+ipsec ike local id 3 10.6.0.0/16
+ipsec ike pfs 3 on
+ipsec ike pre-shared-key 3 text wwwwwww
+ipsec ike remote address 3 52.197.151.142
+ipsec ike remote id 3 0.0.0.0/32
+ipsec sa policy 103 3 esp aes-cbc sha-hmac
+tunnel backup none
+ip tunnel rip send off
+ip tunnel rip receive off
+ip tunnel nat descriptor 1
+tunnel enable 3
+
+### TUNNEL 6 ###
+
+tunnel select 6
+ipsec tunnel 106
+ipsec ike duration ipsec-sa 6 10800
+ipsec ike duration isakmp-sa 6 3600
+ipsec ike encryption 6 aes-cbc
+ipsec ike group 6 modp768 modp1024
+ipsec ike hash 6 sha
+ipsec ike keepalive use 6 off
+ipsec ike local address 6 172.16.5.1
+ipsec ike local id 6 10.6.0.0/16
+ipsec ike pfs 6 on
+ipsec ike pre-shared-key 6 text wh1+eb0@rd
+ipsec ike remote address 6 153.142.244.126
+ipsec ike remote id 6 10.2.0.0/16
+ipsec sa policy 106 6 esp aes-cbc sha-hmac
+tunnel backup none
+ip tunnel rip send off
+ip tunnel rip receive off
+ip tunnel nat descriptor 1
+tunnel enable 6
+
+### TUNNEL 7 ###
+
+tunnel select 7
+ipsec tunnel 107
+ipsec ike duration ipsec-sa 7 10800
+ipsec ike duration isakmp-sa 7 3600
+ipsec ike encryption 7 aes-cbc
+ipsec ike group 7 modp768 modp1024
+ipsec ike hash 7 sha
+ipsec ike keepalive use 7 off
+ipsec ike local address 7 172.16.5.1
+ipsec ike local id 7 10.6.0.0/16
+ipsec ike pfs 7 on
+ipsec ike pre-shared-key 7 text wh1+eb0@rd
+ipsec ike remote address 7 153.142.244.125
+ipsec ike remote id 7 10.1.0.0/16
+ipsec sa policy 107 7 esp aes-cbc sha-hmac
+tunnel backup none
+ip tunnel rip send off
+ip tunnel rip receive off
+ip tunnel nat descriptor 1
+tunnel enable 7
+
+### TUNNEL 5 ###
+
+tunnel select 5
+tunnel encapsulation ipsec
+ipsec tunnel 105
+ipsec sa policy 105 5 esp aes-cbc sha-hmac
+ipsec ike duration ipsec-sa 5 28800
+ipsec ike encryption 5 aes-cbc
+ipsec ike group 5 modp1024
+ipsec ike hash 5 sha
+ipsec ike local address 5 172.16.5.1
+ipsec ike pfs 5 on
+ipsec ike pre-shared-key 5 text dkccsupport
+ipsec ike remote address 5 any
+ipsec ike remote name 5 ccsupport
+ipsec ike keepalive use 5 on heartbeat 10 2
+ip tunnel rip send off
+ip tunnel rip receive off
+tunnel enable 5
+
+### TUNNEL 4 ###
+
+tunnel select 4
+tunnel encapsulation ipsec
+ipsec tunnel 104
+ipsec sa policy 104 4 esp 3des-cbc sha-hmac
+ipsec ike duration ipsec-sa 4 28800
+ipsec ike encryption 4 3des-cbc
+ipsec ike group 4 modp1024
+ipsec ike hash 4 sha
+ipsec ike keepalive use 4 on heartbeat 60 10
+ipsec ike local address 4 172.16.5.1
+ipsec ike pfs 4 on
+ipsec ike pre-shared-key 4 text 153.142.244.124
+ipsec ike remote address 4 61.114.186.110
+ip tunnel rip send off
+ip tunnel rip receive off
+ip tunnel nat descriptor 2012
+tunnel enable 4
+tunnel select 16
+tunnel encapsulation l2tp
+ipsec tunnel 116
+ipsec sa policy 116 16 esp aes-cbc sha-hmac
+ipsec ike keepalive use 16 off
+ipsec ike nat-traversal 16 on
+ipsec ike pre-shared-key 16 text e6BQyqm7oTS66KtZPm$ZPP$hwcU7t8rK
+ipsec ike remote address 16 any
+l2tp tunnel auth off
+l2tp tunnel disconnect time off
+l2tp keepalive use on
+ip tunnel tcp mss limit auto
+ip tunnel secure filter name xai_tunnel_lan2
+tunnel enable 16
+tunnel select 17
+tunnel encapsulation l2tp
+ipsec tunnel 117
+ipsec sa policy 117 17 esp aes-cbc sha-hmac
+ipsec ike keepalive use 17 off
+ipsec ike nat-traversal 17 on
+ipsec ike pre-shared-key 17 text e6BQyqm7oTS66KtZPm$ZPP$hwcU7t8rK
+ipsec ike remote address 17 any
+l2tp tunnel auth off
+l2tp tunnel disconnect time off
+l2tp keepalive use on
+ip tunnel tcp mss limit auto
+ip tunnel secure filter name xai_tunnel_lan2
+tunnel enable 17
+tunnel select 18
+tunnel encapsulation l2tp
+ipsec tunnel 118
+ipsec sa policy 118 18 esp aes-cbc sha-hmac
+ipsec ike keepalive use 18 off
+ipsec ike nat-traversal 18 on
+ipsec ike pre-shared-key 18 text e6BQyqm7oTS66KtZPm$ZPP$hwcU7t8rK
+ipsec ike remote address 18 any
+l2tp tunnel auth off
+l2tp tunnel disconnect time off
+l2tp keepalive use on
+ip tunnel tcp mss limit auto
+ip tunnel secure filter name xai_tunnel_lan2
+tunnel enable 18
+tunnel select 19
+tunnel encapsulation l2tp
+ipsec tunnel 119
+ipsec sa policy 119 19 esp aes-cbc sha-hmac
+ipsec ike keepalive use 19 off
+ipsec ike nat-traversal 19 on
+ipsec ike pre-shared-key 19 text e6BQyqm7oTS66KtZPm$ZPP$hwcU7t8rK
+ipsec ike remote address 19 any
+l2tp tunnel auth off
+l2tp tunnel disconnect time off
+l2tp keepalive use on
+ip tunnel tcp mss limit auto
+ip tunnel secure filter name xai_tunnel_lan2
+tunnel enable 19
+tunnel select 20
+tunnel encapsulation l2tp
+ipsec tunnel 120
+ipsec sa policy 120 20 esp aes-cbc sha-hmac
+ipsec ike keepalive use 20 off
+ipsec ike nat-traversal 20 on
+ipsec ike pre-shared-key 20 text e6BQyqm7oTS66KtZPm$ZPP$hwcU7t8rK
+ipsec ike remote address 20 any
+l2tp tunnel auth off
+l2tp tunnel disconnect time off
+l2tp keepalive use on
+ip tunnel tcp mss limit auto
+ip tunnel secure filter name xai_tunnel_lan2
+tunnel enable 20
+
+### IPSEC ###
+
+ipsec transport 16 116 udp 1701
+ipsec transport 17 117 udp 1701
+ipsec transport 18 118 udp 1701
+ipsec transport 19 119 udp 1701
+ipsec transport 20 120 udp 1701
+
+# IP filter configuration
+
+ip filter source-route on
+ip filter directed-broadcast on
+tunnel select 2
+tunnel encapsulation ipsec
+ipsec tunnel 102
+ipsec sa policy 102 2 esp 3des-cbc sha-hmac
+ipsec ike duration ipsec-sa 2 28800
+ipsec ike encryption 2 3des-cbc
+ipsec ike group 2 modp1024
+ipsec ike hash 2 sha
+ipsec ike keepalive use 2 on heartbeat 60 10
+ipsec ike local address 2 172.16.5.1
+ipsec ike pfs 2 on
+ipsec ike pre-shared-key 2 text 153.142.244.124
+ipsec ike remote address 2 192.0.2.1
+tunnel backup tunnel 8 switch-interface=on
+ip tunnel nat descriptor 2012
+ip tunnel rip send off
+ip tunnel rip receive off
+tunnel enable 2
+tunnel select 8
+tunnel encapsulation ipsec
+ipsec tunnel 108
+ipsec sa policy 108 8 esp 3des-cbc sha-hmac
+ipsec ike duration ipsec-sa 8 28800
+ipsec ike encryption 8 3des-cbc
+ipsec ike group 8 modp1024
+ipsec ike hash 8 sha
+ipsec ike keepalive use 8 on heartbeat 60 10
+ipsec ike local address 8 172.16.5.1
+ipsec ike pfs 8 on
+ipsec ike pre-shared-key 8 text 153.142.244.124
+ipsec ike remote address 8 192.0.2.254
+ip tunnel nat descriptor 2012
+ip tunnel rip send off
+ip tunnel rip receive off
+tunnel enable 8
+ip filter 2602 pass 192.0.2.1 172.16.5.1 udp * 500
+ip filter 2608 pass 192.0.2.254 172.16.5.1 udp * 500
+ip filter 2652 pass 172.16.5.1 192.0.2.1 udp * 500
+ip filter 2658 pass 172.16.5.1 192.0.2.254 udp * 500
+ip filter 2702 pass 192.0.2.1 172.16.5.1 esp * *
+ip filter 2708 pass 192.0.2.254 172.16.5.1 esp * *
+ip filter 2752 pass 172.16.5.1 192.0.2.1 esp * *
+ip filter 2758 pass 172.16.5.1 192.0.2.254 esp * *
+
+ip filter 1 reject * * udp,tcp netbios_ns-netbios_ssn *
+ip filter 2 reject * * udp,tcp * netbios_ns-netbios_ssn
+ip filter 3 reject * * udp,tcp 135 *
+ip filter 4 reject * * udp,tcp * 135
+ip filter 5 reject * * udp,tcp 445 *
+ip filter 6 reject * * udp,tcp * 445
+ip filter 9 reject * * * * *
+ip filter 10 reject 172.16.0.0/16 * * * *
+ip filter 15 reject * 172.16.0.0/16 * * *
+ip filter 20 pass 211.129.14.134,211.129.12.43 172.16.0.0/16 udp domain *
+ip filter 21 pass 211.129.14.134,211.129.12.43 172.16.5.0/24 udp domain *
+ip filter 22 pass 211.129.14.134,211.129.12.43 172.16.15.0/24 udp domain *
+ip filter 23 pass 211.129.14.134,211.129.12.43 172.16.60.0/24 udp domain *
+ip filter 25 pass 172.16.0.0/16 211.129.14.134,211.129.12.43 udp * domain
+ip filter 26 pass 172.16.5.0/24 211.129.14.134,211.129.12.43 udp * domain
+ip filter 27 pass 172.16.15.0/24 211.129.14.134,211.129.12.43 udp * domain
+ip filter 28 pass 172.16.60.0/24 211.129.14.134,211.129.12.43 udp * domain
+ip filter 30 pass 61.114.182.53 172.16.0.0/16 tcp https *
+ip filter 31 pass 61.114.182.53 172.16.5.0/24 tcp https *
+ip filter 32 pass 61.114.182.53 172.16.15.0/24 tcp https *
+ip filter 33 pass 61.114.182.53 172.16.60.0/24 tcp https *
+ip filter 35 pass 172.16.0.0/16 61.114.182.53 tcp * https
+ip filter 36 pass 172.16.5.0/24 61.114.182.53 tcp * https
+ip filter 37 pass 172.16.15.0/24 61.114.182.53 tcp * https
+ip filter 38 pass 172.16.60.0/24 61.114.182.53 tcp * https
+ip filter 40 pass 61.114.182.54 172.16.0.0/16 tcp www *
+ip filter 41 pass 61.114.182.54 172.16.5.0/24 tcp www *
+ip filter 42 pass 61.114.182.54 172.16.15.0/24 tcp www *
+ip filter 43 pass 61.114.182.54 172.16.60.0/24 tcp www *
+ip filter 45 pass 172.16.0.0/16 61.114.182.54 tcp * www
+ip filter 46 pass 172.16.5.0/24 61.114.182.54 tcp * www
+ip filter 47 pass 172.16.15.0/24 61.114.182.54 tcp * www
+ip filter 48 pass 172.16.60.0/24 61.114.182.54 tcp * www
+ip filter 50 pass 61.114.186.0/25 172.16.0.0/16 tcp www,https *
+ip filter 51 pass 61.114.186.0/25 172.16.5.0/24 tcp www,https *
+ip filter 52 pass 61.114.186.0/25 172.16.15.0/24 tcp www,https *
+ip filter 53 pass 61.114.186.0/25 172.16.60.0/24 tcp www,https *
+ip filter 54 pass 61.114.186.0/25 172.16.80.0/22 tcp www,https *
+ip filter 55 pass 172.16.0.0/16 61.114.186.0/25 tcp * www,https
+ip filter 56 pass 172.16.5.0/24 61.114.186.0/25 tcp * www,https
+ip filter 57 pass 172.16.15.0/24 61.114.186.0/25 tcp * www,https
+ip filter 58 pass 172.16.60.0/24 61.114.186.0/25 tcp * www,https
+ip filter 59 pass 172.16.80.0/22 61.114.186.0/25 tcp * www,https
+ip filter 60 pass 61.114.177.148 172.16.0.0/16 tcp https *
+ip filter 61 pass 61.114.177.148 172.16.5.0/24 tcp https *
+ip filter 62 pass 61.114.177.148 172.16.15.0/24 tcp https *
+ip filter 63 pass 61.114.177.148 172.16.60.0/24 tcp https *
+ip filter 65 pass 172.16.0.0/16 61.114.177.148 tcp * https
+ip filter 66 pass 172.16.5.0/24 61.114.177.148 tcp * https
+ip filter 67 pass 172.16.15.0/24 61.114.177.148 tcp * https
+ip filter 68 pass 172.16.60.0/24 61.114.177.148 tcp * https
+ip filter 70 pass 202.229.106.177 172.16.0.0/16 tcp www,https *
+ip filter 71 pass 202.229.106.177 172.16.5.0/24 tcp www,https *
+ip filter 72 pass 202.229.106.177 172.16.15.0/24 tcp www,https *
+ip filter 73 pass 202.229.106.177 172.16.60.0/24 tcp www,https *
+ip filter 74 pass 202.229.106.177 172.16.80.0/22 tcp www,https *
+ip filter 75 pass 172.16.0.0/16 202.229.106.177 tcp * www,https
+ip filter 76 pass 172.16.5.0/24 202.229.106.177 tcp * www,https
+ip filter 77 pass 172.16.15.0/24 202.229.106.177 tcp * www,https
+ip filter 78 pass 172.16.60.0/24 202.229.106.177 tcp * www,https
+ip filter 79 pass 172.16.80.0/22 202.229.106.177 tcp * www,https
+ip filter 80 pass 202.226.76.11 172.16.0.0/16 tcp https *
+ip filter 81 pass 202.226.76.11 172.16.0.0/16 tcp www *
+ip filter 82 pass 113.52.158.128/25 172.16.15.0/24 tcp www,https *
+ip filter 83 pass 182.248.135.70,106.186.75.198 172.16.0.0/16 tcp www,https *
+ip filter 84 pass * 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 tcp www,https *
+ip filter 85 pass 172.16.0.0/16 202.226.76.11 tcp * https
+ip filter 86 pass 172.16.0.0/16 202.226.76.11 tcp * www
+ip filter 87 pass 172.16.15.0/24 113.52.158.128/25 tcp * www,https
+ip filter 88 pass 172.16.0.0/16 182.248.135.70,106.186.75.198 tcp * www,https
+ip filter 89 pass 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * tcp * www,https
+ip filter 92 pass * 172.16.5.0/24 tcp https,5222,5223 *
+ip filter 93 pass * 172.16.5.0/24 udp domain,ntp *
+ip filter 94 pass * 172.16.5.0/24 icmp
+ip filter 97 pass 172.16.5.0/24 * tcp * https,5222,5223
+ip filter 98 pass 172.16.5.0/24 * udp * domain,ntp
+ip filter 99 pass 172.16.5.0/24 * icmp
+ip filter 100 pass-log * * * * *
+ip filter 101 reject * * established * netbios_ns-netbios_ssn
+ip filter 102 reject * * established * 135
+ip filter 103 reject * * established * 445
+ip filter 104 reject * * established * https
+ip filter 105 reject * * established * www
+ip filter 106 reject * * established * pop3
+ip filter 107 reject * * established * smtp
+ip filter 1400 pass 172.16.0.0/16 * * * *
+ip filter 1401 pass 172.21.0.0/16 * * * *
+ip filter 1405 pass * 172.16.0.0/16 * * *
+ip filter 1406 pass * 172.21.0.0/16 * * *
+ip filter 1410 pass * * udp dhcpc dhcps
+ip filter 1430 pass 10.0.0.0/8 10.0.208.0/20 * * *
+ip filter 1431 pass 10.0.208.0/20 10.0.0.0/8 * * *
+ip filter 1432 pass 10.0.0.0/8 172.30.1.110 tcp * 21
+ip filter 1433 pass 172.30.1.110 10.0.0.0/8 tcp 21 *
+ip filter 1434 pass 10.0.0.0/8 172.30.1.110 tcp * ftpdata
+ip filter 1435 pass 172.30.1.110 10.0.0.0/8 tcp ftpdata *
+ip filter 1436 pass 10.0.0.0/8 172.31.191.0/24 * * *
+ip filter 1437 pass 172.31.191.0/24 10.0.0.0/8 * * *
+ip filter 1438 pass 10.0.0.0/8 10.0.0.0/8 * * *
+ip filter 1440 pass 172.18.0.0/24 10.0.192.0/18 * * *
+ip filter 1441 pass 10.0.192.0/18 172.18.0.0/24 * * *
+ip filter 2010 reject 172.16.0.0/16 * * * *
+ip filter 2015 reject * 172.16.0.0/16 * * *
+ip filter 2025 pass 172.16.0.0/16 211.129.14.134,211.129.12.43 udp * domain
+ip filter 2026 pass * 211.129.14.134,211.129.12.43 udp * domain
+ip filter 2027 pass 172.16.15.0/24 211.129.14.134,211.129.12.43 udp * domain
+ip filter 2028 pass 172.16.60.0/24 211.129.14.134,211.129.12.43 udp * domain
+ip filter 2030 pass 61.114.182.53 172.16.0.0/16 tcp https *
+ip filter 2031 pass 61.114.182.53 172.16.5.0/24 tcp https *
+ip filter 2032 pass 61.114.182.53 172.16.15.0/24 tcp https *
+ip filter 2033 pass 61.114.182.53 172.16.60.0/24 tcp https *
+ip filter 2035 pass 172.16.0.0/16 61.114.182.53 tcp * https
+ip filter 2036 pass 172.16.5.0/24 61.114.182.53 tcp * https
+ip filter 2037 pass 172.16.15.0/24 61.114.182.53 tcp * https
+ip filter 2038 pass 172.16.60.0/24 61.114.182.53 tcp * https
+ip filter 2040 pass 61.114.182.54 172.16.0.0/16 tcp www *
+ip filter 2041 pass 61.114.182.54 172.16.5.0/24 tcp www *
+ip filter 2042 pass 61.114.182.54 172.16.15.0/24 tcp www *
+ip filter 2043 pass 61.114.182.54 172.16.60.0/24 tcp www *
+ip filter 2045 pass 172.16.0.0/16 61.114.182.54 tcp * www
+ip filter 2046 pass 172.16.5.0/24 61.114.182.54 tcp * www
+ip filter 2047 pass 172.16.15.0/24 61.114.182.54 tcp * www
+ip filter 2048 pass 172.16.60.0/24 61.114.182.54 tcp * www
+ip filter 2050 pass 61.114.186.0/25 172.16.0.0/16 tcp www,https *
+ip filter 2051 pass 61.114.186.0/25 172.16.5.0/24 tcp www,https *
+ip filter 2052 pass 61.114.186.0/25 172.16.15.0/24 tcp www,https *
+ip filter 2053 pass 61.114.186.0/25 172.16.60.0/24 tcp www,https *
+ip filter 2054 pass 61.114.186.0/25 172.16.80.0/22 tcp www,https *
+ip filter 2055 pass 172.16.0.0/16 61.114.186.0/25 tcp * www,https
+ip filter 2056 pass 172.16.5.0/24 61.114.186.0/25 tcp * www,https
+ip filter 2057 pass 172.16.15.0/24 61.114.186.0/25 tcp * www,https
+ip filter 2058 pass 172.16.60.0/24 61.114.186.0/25 tcp * www,https
+ip filter 2059 pass 172.16.80.0/22 61.114.186.0/25 tcp * www,https
+ip filter 2060 pass 61.114.177.148 172.16.0.0/16 tcp https *
+ip filter 2061 pass 61.114.177.148 172.16.5.0/24 tcp https *
+ip filter 2062 pass 61.114.177.148 172.16.15.0/24 tcp https *
+ip filter 2063 pass 61.114.177.148 172.16.60.0/24 tcp https *
+ip filter 2065 pass 172.16.0.0/16 61.114.177.148 tcp * https
+ip filter 2066 pass 172.16.5.0/24 61.114.177.148 tcp * https
+ip filter 2067 pass 172.16.15.0/24 61.114.177.148 tcp * https
+ip filter 2068 pass 172.16.60.0/24 61.114.177.148 tcp * https
+ip filter 2070 pass 202.229.106.177 172.16.0.0/16 tcp www,https *
+ip filter 2071 pass 202.229.106.177 172.16.5.0/24 tcp www,https *
+ip filter 2072 pass 202.229.106.177 172.16.15.0/24 tcp www,https *
+ip filter 2073 pass 202.229.106.177 172.16.60.0/24 tcp www,https *
+ip filter 2074 pass 202.229.106.177 172.16.80.0/22 tcp www,https *
+ip filter 2075 pass 172.16.0.0/16 202.229.106.177 tcp * www,https
+ip filter 2076 pass 172.16.5.0/24 202.229.106.177 tcp * www,https
+ip filter 2077 pass 172.16.15.0/24 202.229.106.177 tcp * www,https
+ip filter 2078 pass 172.16.60.0/24 202.229.106.177 tcp * www,https
+ip filter 2079 pass 172.16.80.0/22 202.229.106.177 tcp * www,https
+ip filter 2080 pass 202.226.76.11 172.16.0.0/16 tcp https *
+ip filter 2081 pass 202.226.76.11 172.16.0.0/16 tcp www *
+ip filter 2082 pass 113.52.158.128/25 172.16.15.0/24 tcp www,https *
+ip filter 2083 pass 182.248.135.70,106.186.75.198 172.16.0.0/16 tcp www,https *
+ip filter 2084 pass * 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 tcp www,https *
+ip filter 2085 pass 172.16.0.0/16 202.226.76.11 tcp * https
+ip filter 2086 pass 172.16.0.0/16 202.226.76.11 tcp * www
+ip filter 2087 pass 172.16.15.0/24 113.52.158.128/25 tcp * www,https
+ip filter 2088 pass 172.16.0.0/16 182.248.135.70,106.186.75.198 tcp * www,https
+ip filter 2089 pass 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * tcp * www,https
+ip filter 2092 pass * 172.16.5.0/24 tcp https,5222,5223 *
+ip filter 2093 pass * 172.16.5.0/24 udp domain,ntp *
+ip filter 2094 pass * 172.16.5.0/24 icmp
+ip filter 2097 pass 172.16.5.0/24 * tcp * https,5222,5223
+ip filter 2098 pass 172.16.5.0/24 * udp * domain,ntp
+ip filter 2099 pass 172.16.5.0/24 * icmp
+ip filter 2200 pass * 172.16.5.1 tcp * 1723
+ip filter 2250 pass 172.16.5.1 * tcp 1723 *
+ip filter 2300 pass * 172.16.5.1 gre * *
+ip filter 2350 pass 172.16.5.1 * gre * *
+ip filter 2600 pass 180.42.57.138,180.42.57.139,180.42.57.140,180.42.57.141,180.42.57.142,60.32.143.115,202.41.213.169,222.151.236.147,125.206.255.43,202.124.220.210,202.124.220.211,203.129.125.175,180.42.70.99,202.124.220.212,202.124.220.213,202.124.220.214,202.124.220.215,202.124.220.216,202.124.220.217,202.124.220.218,202.124.220.219,202.124.220.220,202.124.220.221,202.124.220.222,203.129.125.172,203.129.125.173,203.129.125.174,203.129.125.171,14.192.44.211,14.192.44.212,14.192.44.213,14.192.44.214,14.192.44.215,14.192.44.216,14.192.44.217,14.192.44.218,14.192.44.219,14.192.44.220,14.192.44.221,14.192.44.222,180.42.70.98,180.42.70.101,114.179.30.27,114.179.105.106,114.179.105.107,118.22.14.107,118.22.14.106,124.110.99.116,124.110.99.117,124.110.99.118,124.110.99.119,124.110.99.120,124.110.99.121,124.110.99.122,124.110.99.123,210.162.143.68,210.162.143.69,210.162.143.70,210.162.143.71,210.227.65.146,210.227.65.147,210.227.65.148,210.227.65.149,122.103.88.162,122.103.88.163,122.103.88.164,122.103.88.165,122.20.254.42,153.150.112.121,153.150.112.122 172.16.5.1 udp * 500
+ip filter 2601 pass 61.114.186.111 172.16.5.1 udp * 500
+ip filter 2603 pass 52.197.151.142 172.16.5.1 udp * 500
+ip filter 2604 pass 61.114.186.110 172.16.5.1 udp * 500
+ip filter 2606 pass 153.142.244.126 172.16.5.1 udp * 500
+ip filter 2607 pass 153.142.244.125 172.16.5.1 udp * 500
+ip filter 2650 pass 172.16.5.1 180.42.57.138,180.42.57.139,180.42.57.140,180.42.57.141,180.42.57.142,60.32.143.115,202.41.213.169,222.151.236.147,125.206.255.43,202.124.220.210,202.124.220.211,203.129.125.175,180.42.70.99,202.124.220.212,202.124.220.213,202.124.220.214,202.124.220.215,202.124.220.216,202.124.220.217,202.124.220.218,202.124.220.219,202.124.220.220,202.124.220.221,202.124.220.222,203.129.125.172,203.129.125.173,203.129.125.174,203.129.125.171,14.192.44.211,14.192.44.212,14.192.44.213,14.192.44.214,14.192.44.215,14.192.44.216,14.192.44.217,14.192.44.218,14.192.44.219,14.192.44.220,14.192.44.221,14.192.44.222,180.42.70.98,180.42.70.101,114.179.30.27,114.179.105.106,114.179.105.107,118.22.14.107,118.22.14.106,124.110.99.116,124.110.99.117,124.110.99.118,124.110.99.119,124.110.99.120,124.110.99.121,124.110.99.122,124.110.99.123,210.162.143.68,210.162.143.69,210.162.143.70,210.162.143.71,210.227.65.146,210.227.65.147,210.227.65.148,210.227.65.149,122.103.88.162,122.103.88.163,122.103.88.164,122.103.88.165,122.20.254.42,153.150.112.121,153.150.112.122 udp * 500
+ip filter 2651 pass 172.16.5.1 61.114.186.111 udp * 500
+ip filter 2653 pass 172.16.5.1 52.197.151.142 udp * 500
+ip filter 2654 pass 172.16.5.1 61.114.186.110 udp * 500
+ip filter 2656 pass 172.16.5.1 153.142.244.126 udp * 500
+ip filter 2657 pass 172.16.5.1 153.142.244.125 udp * 500
+ip filter 2700 pass 180.42.57.138,180.42.57.139,180.42.57.140,180.42.57.141,180.42.57.142,60.32.143.115,202.41.213.169,222.151.236.147,125.206.255.43,202.124.220.210,202.124.220.211,203.129.125.175,180.42.70.99,202.124.220.212,202.124.220.213,202.124.220.214,202.124.220.215,202.124.220.216,202.124.220.217,202.124.220.218,202.124.220.219,202.124.220.220,202.124.220.221,202.124.220.222,203.129.125.172,203.129.125.173,203.129.125.174,203.129.125.171,14.192.44.211,14.192.44.212,14.192.44.213,14.192.44.214,14.192.44.215,14.192.44.216,14.192.44.217,14.192.44.218,14.192.44.219,14.192.44.220,14.192.44.221,14.192.44.222,180.42.70.98,180.42.70.101,114.179.30.27,114.179.105.106,114.179.105.107,118.22.14.107,118.22.14.106,124.110.99.116,124.110.99.117,124.110.99.118,124.110.99.119,124.110.99.120,124.110.99.121,124.110.99.122,124.110.99.123,210.162.143.68,210.162.143.69,210.162.143.70,210.162.143.71,210.227.65.146,210.227.65.147,210.227.65.148,210.227.65.149,122.103.88.162,122.103.88.163,122.103.88.164,122.103.88.165,122.20.254.42,153.150.112.121,153.150.112.122 172.16.5.1 esp * *
+ip filter 2701 pass 61.114.186.111 172.16.5.1 esp * *
+ip filter 2703 pass 52.197.151.142 172.16.5.1 esp * *
+ip filter 2704 pass 61.114.186.110 172.16.5.1 esp * *
+ip filter 2706 pass 153.142.244.126 172.16.5.1 esp * *
+ip filter 2707 pass 153.142.244.125 172.16.5.1 esp * *
+ip filter 2750 pass 172.16.5.1 180.42.57.138,180.42.57.139,180.42.57.140,180.42.57.141,180.42.57.142,60.32.143.115,202.41.213.169,222.151.236.147,125.206.255.43,202.124.220.210,202.124.220.211,203.129.125.175,180.42.70.99,202.124.220.212,202.124.220.213,202.124.220.214,202.124.220.215,202.124.220.216,202.124.220.217,202.124.220.218,202.124.220.219,202.124.220.220,202.124.220.221,202.124.220.222,203.129.125.172,203.129.125.173,203.129.125.174,203.129.125.171,14.192.44.211,14.192.44.212,14.192.44.213,14.192.44.214,14.192.44.215,14.192.44.216,14.192.44.217,14.192.44.218,14.192.44.219,14.192.44.220,14.192.44.221,14.192.44.222,180.42.70.98,180.42.70.101,114.179.30.27,114.179.105.106,114.179.105.107,118.22.14.107,118.22.14.106,124.110.99.116,124.110.99.117,124.110.99.118,124.110.99.119,124.110.99.120,124.110.99.121,124.110.99.122,124.110.99.123,210.162.143.68,210.162.143.69,210.162.143.70,210.162.143.71,210.227.65.146,210.227.65.147,210.227.65.148,210.227.65.149,122.103.88.162,122.103.88.163,122.103.88.164,122.103.88.165,122.20.254.42,153.150.112.121,153.150.112.122 esp * *
+ip filter 2751 pass 172.16.5.1 61.114.186.111 esp * *
+ip filter 2753 pass 172.16.5.1 52.197.151.142 esp * *
+ip filter 2754 pass 172.16.5.1 61.114.186.110 esp * *
+ip filter 2756 pass 172.16.5.1 153.142.244.126 esp * *
+ip filter 2757 pass 172.16.5.1 153.142.244.125 esp * *
+ip filter 2900 pass * 172.16.0.0/16 icmp * *
+ip filter 2901 pass 61.114.186.111 172.16.0.0/16 icmp * *
+ip filter 2903 pass 52.197.151.142 172.16.0.0/16 icmp * *
+ip filter 2904 pass 61.114.186.110 172.16.0.0/16 icmp * *
+ip filter 2906 pass 153.142.244.126 172.16.0.0/16 icmp * *
+ip filter 2907 pass 153.142.244.125 172.16.0.0/16 icmp * *
+ip filter 2950 pass 172.16.0.0/16 * icmp * *
+ip filter 2951 pass 172.16.0.0/16 61.114.186.111 icmp * *
+ip filter 2953 pass 172.16.0.0/16 52.197.151.142 icmp * *
+ip filter 2954 pass 172.16.0.0/16 61.114.186.110 icmp * *
+ip filter 2956 pass 172.16.0.0/16 153.142.244.126 icmp * *
+ip filter 2957 pass 172.16.0.0/16 153.142.244.125 icmp * *
+ip filter 3080 pass 202.226.76.11 172.16.0.0/16 tcp https *
+ip filter 3081 pass 202.226.76.11 172.16.0.0/16 tcp www *
+ip filter 3082 pass 113.52.158.128/25 172.16.15.0/24 tcp www,https *
+ip filter 3083 pass 182.248.135.70,106.186.75.198 172.16.0.0/16 tcp www,https *
+ip filter 3084 pass * 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 tcp www,https *
+ip filter 3085 pass 172.16.0.0/16 202.226.76.11 tcp * https
+ip filter 3086 pass 172.16.0.0/16 202.226.76.11 tcp * www
+ip filter 3087 pass 172.16.15.0/24 113.52.158.128/25 tcp * www,https
+ip filter 3088 pass 172.16.0.0/16 182.248.135.70,106.186.75.198 tcp * www,https
+ip filter 3089 pass 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * tcp * www,https
+ip filter 3092 pass * 172.16.5.0/24 tcp https,5222,5223 *
+ip filter 3093 pass * 172.16.5.0/24 udp domain,ntp *
+ip filter 3094 pass * 172.16.5.0/24 icmp
+ip filter 3097 pass 172.16.5.0/24 * tcp * https,5222,5223
+ip filter 3098 pass 172.16.5.0/24 * udp * domain,ntp
+ip filter 3099 pass 172.16.5.0/24 * icmp
+ip filter 101402 pass * - udp ntp *
+ip filter 101404 pass * - tcp www,https *
+ip filter 101406 pass - 180.55.241.146 udp * *
+ip filter 101407 pass - * udp * ntp
+ip filter 101408 pass - * udp * domain
+ip filter 101409 pass - * tcp * www,https
+ip filter 10800 pass 18.179.137.187,3.115.131.124 172.16.15.0/24 tcp www,https,8080 *
+ip filter 10801 pass 172.16.15.0/24 18.179.137.187,3.115.131.124 tcp * www,https,8080
+ip filter 10500 pass * 172.16.5.1 tcp * 53196
+ip filter 10505 pass 172.16.5.1 * tcp 53196
+ip filter 10510 pass 172.16.5.1 172.16.5.1 udp * 500
+ip filter 10520 pass 172.16.5.1 172.16.5.1 esp * *
+ip filter 10525 pass 172.16.5.1 172.16.5.1 esp * *
+ip filter 10550 pass 172.16.5.1 172.16.5.1 udp * 1701
+ip filter 10560 pass 172.16.5.1 172.16.5.1 udp * 4500
+ip filter 10575 pass 172.16.5.1 172.16.5.1 udp * *
+ip filter 10600 pass 172.16.60.0/24 172.16.60.0/24 tcp * 58300
+ip filter 10605 pass 172.16.60.0/24 172.16.60.0/24 tcp 58300 *
+ip filter 10610 pass 172.16.60.0/24 172.16.60.0/24 udp 58301 *
+ip filter 10615 pass 172.16.60.0/24 172.16.60.0/24 udp * 58301
+ip filter 10620 pass 172.16.60.0/24 172.16.60.0/24 tcp * 58378
+ip filter 10625 pass 172.16.60.0/24 172.16.60.0/24 tcp 58378 *
+ip filter 12600 pass 221.186.163.29,180.42.107.1,153.139.247.107,222.151.227.83,221.186.163.27,221.186.163.28,220.110.177.59,220.110.177.60,122.1.9.170,122.1.9.171,122.1.9.172,122.1.9.173,122.1.9.174,125.206.196.139,125.206.210.19,60.32.159.235,60.32.143.116,60.32.143.117,202.41.213.170,202.41.213.171,202.41.213.172,202.41.213.173,221.186.110.83,60.32.158.219,114.156.254.18,222.151.236.148,222.151.236.149,222.151.236.146,153.231.254.66,153.231.254.67,60.32.188.115,60.32.188.116,60.32.123.123,60.32.123.124,125.206.255.44,125.206.255.45,60.32.122.123,60.32.122.124,180.42.70.100,180.42.70.102,180.42.70.103,180.42.70.104,180.42.70.105,118.22.14.108,118.22.14.109,153.150.21.247 172.16.5.0/24 udp * 500
+ip filter 12650 pass 172.16.5.0/24 221.186.163.29,180.42.107.1,153.139.247.107,222.151.227.83,221.186.163.27,221.186.163.28,220.110.177.59,220.110.177.60,122.1.9.170,122.1.9.171,122.1.9.172,122.1.9.173,122.1.9.174,125.206.196.139,125.206.210.19,60.32.159.235,60.32.143.116,60.32.143.117,202.41.213.170,202.41.213.171,202.41.213.172,202.41.213.173,221.186.110.83,60.32.158.219,114.156.254.18,222.151.236.148,222.151.236.149,222.151.236.146,153.231.254.66,153.231.254.67,60.32.188.115,60.32.188.116,60.32.123.123,60.32.123.124,125.206.255.44,125.206.255.45,60.32.122.123,60.32.122.124,180.42.70.100,180.42.70.102,180.42.70.103,180.42.70.104,180.42.70.105,118.22.14.108,118.22.14.109,153.150.21.247 udp * 500
+ip filter 12700 pass 221.186.163.29,180.42.107.1,153.139.247.107,222.151.227.83,221.186.163.27,221.186.163.28,220.110.177.59,220.110.177.60,122.1.9.170,122.1.9.171,122.1.9.172,122.1.9.173,122.1.9.174,125.206.196.139,125.206.210.19,60.32.159.235,60.32.143.116,60.32.143.117,202.41.213.170,202.41.213.171,202.41.213.172,202.41.213.173,221.186.110.83,60.32.158.219,114.156.254.18,222.151.236.148,222.151.236.149,222.151.236.146,153.231.254.66,153.231.254.67,60.32.188.115,60.32.188.116,60.32.123.123,60.32.123.124,125.206.255.44,125.206.255.45,60.32.122.123,60.32.122.124,180.42.70.100,180.42.70.102,180.42.70.103,180.42.70.104,180.42.70.105,118.22.14.108,118.22.14.109,153.150.21.247 172.16.5.0/24 esp * *
+ip filter 12750 pass 172.16.5.0/24 221.186.163.29,180.42.107.1,153.139.247.107,222.151.227.83,221.186.163.27,221.186.163.28,220.110.177.59,220.110.177.60,122.1.9.170,122.1.9.171,122.1.9.172,122.1.9.173,122.1.9.174,125.206.196.139,125.206.210.19,60.32.159.235,60.32.143.116,60.32.143.117,202.41.213.170,202.41.213.171,202.41.213.172,202.41.213.173,221.186.110.83,60.32.158.219,114.156.254.18,222.151.236.148,222.151.236.149,222.151.236.146,153.231.254.66,153.231.254.67,60.32.188.115,60.32.188.116,60.32.123.123,60.32.123.124,125.206.255.44,125.206.255.45,60.32.122.123,60.32.122.124,180.42.70.100,180.42.70.102,180.42.70.103,180.42.70.104,180.42.70.105,118.22.14.108,118.22.14.109,153.150.21.247 esp * *
+ip filter dynamic 25 172.16.0.0/16 211.129.14.134,211.129.12.43 domain
+ip filter dynamic 26 172.16.5.0/24 211.129.14.134,211.129.12.43 domain
+ip filter dynamic 27 172.16.15.0/24 211.129.14.134,211.129.12.43 domain
+ip filter dynamic 28 172.16.60.0/24 211.129.14.134,211.129.12.43 domain
+ip filter dynamic 35 172.16.0.0/16 61.114.182.53 filter 35 in 30
+ip filter dynamic 36 172.16.5.0/24 61.114.182.53 filter 36 in 31
+ip filter dynamic 37 172.16.15.0/24 61.114.182.53 filter 37 in 32
+ip filter dynamic 38 172.16.60.0/24 61.114.182.53 filter 38 in 33
+ip filter dynamic 45 172.16.0.0/16 61.114.182.54 filter 45 in 40
+ip filter dynamic 46 172.16.5.0/24 61.114.182.54 filter 46 in 41
+ip filter dynamic 47 172.16.15.0/24 61.114.182.54 filter 47 in 42
+ip filter dynamic 48 172.16.60.0/24 61.114.182.54 filter 48 in 43
+ip filter dynamic 55 172.16.0.0/16 61.114.186.0/25 filter 55 in 50
+ip filter dynamic 56 172.16.5.0/24 61.114.186.0/25 filter 56 in 51
+ip filter dynamic 57 172.16.15.0/24 61.114.186.0/25 filter 57 in 52
+ip filter dynamic 58 172.16.60.0/24 61.114.186.0/25 filter 58 in 53
+ip filter dynamic 59 172.16.80.0/22 61.114.186.0/25 filter 59 in 54
+ip filter dynamic 65 172.16.0.0/16 61.114.177.148 filter 65 in 60
+ip filter dynamic 66 172.16.5.0/24 61.114.177.148 filter 66 in 61
+ip filter dynamic 67 172.16.15.0/24 61.114.177.148 filter 67 in 62
+ip filter dynamic 68 172.16.60.0/24 61.114.177.148 filter 68 in 63
+ip filter dynamic 75 172.16.0.0/16 202.229.106.177 filter 75 in 70
+ip filter dynamic 76 172.16.5.0/24 202.229.106.177 filter 76 in 71
+ip filter dynamic 77 172.16.15.0/24 202.229.106.177 filter 77 in 72
+ip filter dynamic 78 172.16.60.0/24 202.229.106.177 filter 78 in 73
+ip filter dynamic 79 172.16.80.0/22 202.229.106.177 filter 79 in 74
+ip filter dynamic 85 172.16.0.0/16 * filter 85 in 80
+ip filter dynamic 86 172.16.0.0/16 * filter 86 in 81
+ip filter dynamic 87 172.16.15.0/24 * filter 87 in 82
+ip filter dynamic 88 172.16.0.0/16 * filter 88 in 83
+ip filter dynamic 89 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * filter 89 in 84
+ip filter dynamic 97 172.16.5.0/24 * filter 97 in 92
+ip filter dynamic 98 172.16.5.0/24 * filter 98 in 93
+ip filter dynamic 99 172.16.5.0/24 * filter 99 in 94
+ip filter dynamic 2097 172.16.5.0/24 * filter 2097 in 2092
+ip filter dynamic 2098 172.16.5.0/24 * filter 2098 in 2093
+ip filter dynamic 2099 172.16.5.0/24 * filter 2099 in 2094
+ip filter dynamic 3097 172.16.5.0/24 * filter 3097 in 3092
+ip filter dynamic 3098 172.16.5.0/24 * filter 3098 in 3093
+ip filter dynamic 3099 172.16.5.0/24 * filter 3099 in 3094
+ip filter dynamic 2025 172.16.0.0/16 211.129.14.134,211.129.12.43 domain
+ip filter dynamic 2026 * 211.129.14.134,211.129.12.43 domain
+ip filter dynamic 2027 172.16.15.0/24 211.129.14.134,211.129.12.43 domain
+ip filter dynamic 2028 172.16.60.0/24 211.129.14.134,211.129.12.43 domain
+ip filter dynamic 2035 172.16.0.0/16 61.114.182.53 filter 2035 in 2030
+ip filter dynamic 2036 172.16.5.0/24 61.114.182.53 filter 2036 in 2031
+ip filter dynamic 2037 172.16.15.0/24 61.114.182.53 filter 2037 in 2032
+ip filter dynamic 2038 172.16.60.0/24 61.114.182.53 filter 2038 in 2033
+ip filter dynamic 2045 172.16.0.0/16 61.114.182.54 filter 2045 in 2040
+ip filter dynamic 2046 172.16.5.0/24 61.114.182.54 filter 2046 in 2041
+ip filter dynamic 2047 172.16.15.0/24 61.114.182.54 filter 2047 in 2042
+ip filter dynamic 2048 172.16.60.0/24 61.114.182.54 filter 2048 in 2043
+ip filter dynamic 2055 172.16.0.0/16 61.114.186.0/25 filter 2055 in 2050
+ip filter dynamic 2056 172.16.5.0/24 61.114.186.0/25 filter 2056 in 2051
+ip filter dynamic 2057 172.16.15.0/24 61.114.186.0/25 filter 2057 in 2052
+ip filter dynamic 2058 172.16.60.0/24 61.114.186.0/25 filter 2058 in 2053
+ip filter dynamic 2059 172.16.80.0/22 61.114.186.0/25 filter 2059 in 2054
+ip filter dynamic 2065 172.16.0.0/16 61.114.177.148 filter 2065 in 2060
+ip filter dynamic 2066 172.16.5.0/24 61.114.177.148 filter 2066 in 2061
+ip filter dynamic 2067 172.16.15.0/24 61.114.177.148 filter 2067 in 2062
+ip filter dynamic 2068 172.16.60.0/24 61.114.177.148 filter 2068 in 2063
+ip filter dynamic 2075 172.16.0.0/16 202.229.106.177 filter 2075 in 2070
+ip filter dynamic 2076 172.16.5.0/24 202.229.106.177 filter 2076 in 2071
+ip filter dynamic 2077 172.16.15.0/24 202.229.106.177 filter 2077 in 2072
+ip filter dynamic 2078 172.16.60.0/24 202.229.106.177 filter 2078 in 2073
+ip filter dynamic 2079 172.16.80.0/22 202.229.106.177 filter 2079 in 2074
+ip filter dynamic 2085 172.16.0.0/16 * filter 2085 in 2080
+ip filter dynamic 2086 172.16.0.0/16 * filter 2086 in 2081
+ip filter dynamic 2087 172.16.15.0/24 * filter 2087 in 2082
+ip filter dynamic 2088 172.16.0.0/16 * filter 2088 in 2083
+ip filter dynamic 2089 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * filter 2089 in 2084
+ip filter dynamic 101406 - 180.55.241.146 udp
+ip filter dynamic 101407 - * filter 101407 in 101402
+ip filter dynamic 101408 - * domain
+ip filter dynamic 101409 - * filter 101409 in 101404
+ip filter dynamic 3085 172.16.0.0/16 * filter 3085 in 3080
+ip filter dynamic 3086 172.16.0.0/16 * filter 3086 in 3081
+ip filter dynamic 3087 172.16.15.0/24 * filter 3087 in 3082
+ip filter dynamic 3088 172.16.0.0/16 * filter 3088 in 3083
+ip filter dynamic 3089 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * filter 3089 in 3084
+ip filter dynamic 10615 172.16.60.0/24 172.16.60.0/24 filter 10615 in 10610 10620 out 10625
+ip filter set xai_tunnel_lan2 out 10605 10615 dynamic 10615
+ip filter set dk_lan1 in 1400 1405 1410 1430 1431 1432 1433 1434 1435 1436 1437 1440 1441
+ip filter set dk_lan1 out 1400 1405 1430 1431 1432 1433 1434 1435 1436 1437 1440 1441
+ip filter set dk_pp_lan2 in 1 2 3 4 5 6 2010 10800 12600 12700 2200 2300 2600 2601 2603 2604 2606 2607 2700 2701 2703 2704 2706 2707 2901 2903 2904 2906 2907 10500 10510 10520 10550 10560 2602 2608 2702 2708 
+ip filter set dk_pp_lan2 out 1 2 3 4 5 6 104 105 106 107 2015 2026 2037 2038 2047 2048 2057 2058 2059 2067 2068 2077 2078 2079 2085 2086 2087 2088 2089 2097 2098 2099 101406 101407 101408 101409 10801 12650 12750 2250 2350 2650 2651 2653 2654 2656 2657 2750 2751 2753 2754 2756 2757 2951 2953 2954 2956 2957 10505 10525 10575 2652 2658 2752 2758 dynamic 2026 2037 2038 2047 2048 2057 2058 2059 2067 2068 2077 2078 2079 2085 2086 2087 2088 2089 2097 2098 2099 101406 101407 101408 101409
+ip filter set dk_lan3 in 3 4 3010 3420 3421 3500 3520 3530 3550 3560 3580 3590 3801 3802 3803 3804 dynamic 3530 3550 3590
+ip filter set dk_lan3 out 3 4 104 105 3015 3425 3426 3505 3525 3565 3585 3806 3807 3808 3809
+ip filter set dk_pp_lab in 9
+ip filter set dk_pp_lab out 1 2 3 4 5 6 104 105 15 37 38 47 48 57 58 59 67 68 77 78 79 dynamic 37 38 47 48 57 58 59 67 68 77 78 79
+ip filter set getlog in 1 2 3 4 5 6 100
+ip filter set getlog out 1 2 3 4 5 6 100
+
+# NAT Descriptor configuration
+
+nat descriptor log on
+nat descriptor masquerade ttl hold all
+nat descriptor type 1 nat
+nat descriptor address outer 1 10.6.5.1
+nat descriptor address inner 1 172.16.5.1
+nat descriptor static 1 1 10.6.1.1=172.16.1.1 1
+nat descriptor static 1 2 10.6.2.1=172.16.2.1 2
+nat descriptor static 1 4 10.6.4.1=172.16.4.1 8
+nat descriptor static 1 5 10.6.5.1=172.16.5.1 10
+nat descriptor static 1 10 10.6.10.1=172.16.10.1 2
+nat descriptor static 1 11 10.6.11.1=172.16.11.1 128
+nat descriptor static 1 12 10.6.12.1=172.16.12.1 128
+nat descriptor static 1 13 10.6.13.1=172.16.13.1 8
+nat descriptor static 1 14 10.6.14.1=172.16.14.1 12
+nat descriptor static 1 15 10.6.15.1=172.16.15.1 8
+nat descriptor static 1 20 10.6.20.1=172.16.20.1 2
+nat descriptor static 1 21 10.6.21.1=172.16.21.1 1
+nat descriptor static 1 30 10.6.30.1=172.16.30.1 1
+nat descriptor static 1 31 10.6.31.1=172.16.31.1 8
+nat descriptor static 1 40 10.6.40.1=172.16.40.1 32
+nat descriptor static 1 50 10.6.50.1=172.16.50.1 3
+nat descriptor static 1 52 10.6.52.1=172.16.52.1 8
+nat descriptor static 1 60 10.6.60.1=172.16.60.1 127
+nat descriptor static 1 121 10.6.121.20=172.16.121.20 40
+nat descriptor static 1 80 10.6.80.1=172.16.80.1 1
+nat descriptor static 1 81 10.6.81.1=172.16.81.1 16
+nat descriptor static 1 82 10.6.82.1=172.16.82.1 16
+nat descriptor static 1 83 10.6.83.1=172.16.83.1 16
+nat descriptor static 1 110 10.6.110.1=172.16.110.1 2
+nat descriptor static 1 100 10.6.100.1=172.16.100.1 1
+nat descriptor static 1 122 10.6.122.1=172.16.122.1 1
+nat descriptor type 2000 masquerade
+nat descriptor address outer 2000 153.142.244.124
+nat descriptor masquerade static 2000 1 172.16.5.1 udp 500
+nat descriptor masquerade static 2000 2 172.16.5.1 esp
+nat descriptor masquerade static 2000 6 172.16.5.1 udp 4500
+nat descriptor masquerade static 2000 7 172.16.5.1 tcp 53196
+nat descriptor type 2012 masquerade
+nat descriptor address outer 2012 172.23.176.129
+nat descriptor address inner 2012 auto
+nat descriptor static 2012 2 172.23.176.130=172.16.5.1 1
+nat descriptor static 2012 3 172.23.176.131=172.16.60.1 1
+nat descriptor static 2012 4 172.23.176.132=172.16.1.1 1
+nat descriptor static 2012 5 172.23.176.133=172.16.21.1 1
+nat descriptor static 2012 6 172.23.176.134=172.16.80.1 1
+nat descriptor static 2012 7 172.23.176.135=172.16.15.1 1
+nat descriptor static 2012 8 172.23.176.136=172.16.52.8 1
+nat descriptor static 2012 9 172.23.176.137=172.16.50.2 1
+nat descriptor static 2012 10 172.23.176.138=172.16.20.1 1
+nat descriptor static 2012 11 172.23.176.139=172.16.20.2 1
+nat descriptor static 2012 12 172.23.176.140=172.16.110.1 1
+nat descriptor static 2012 13 172.23.176.141=172.16.110.2 1
+nat descriptor static 2012 14 172.23.176.142=172.16.122.1 1
+nat descriptor static 2012 15 172.23.176.143=172.16.15.100 1
+nat descriptor type 12 masquerade
+nat descriptor masquerade static 2000 3 172.16.5.1 tcp 1723
+nat descriptor masquerade static 2000 4 172.16.5.1 gre
+nat descriptor masquerade static 2000 5 172.16.5.1 udp 4500
+nat descriptor sip 2000 off
+
+# Other configuration
+
+syslog info on
+syslog notice on
+syslog debug off
+tftp host any
+ipsec auto refresh on
+dhcp server rfc2131 compliant except remain-silent
+dns server 211.129.14.134 211.129.12.43
+dns server pp 5
+dns private address spoof on
+schedule at 1 */* 6:00 * ntpdate 172.31.191.62
+dns service recursive
+no dhcp service
+no dhcp scope 1
+dhcp scope option 1 dns=172.16.5.1
+pptp service on
+ip stealth pp 5
+l2tp service on
+schedule at 2 startup * lua /xai_check.lua
+schedule at 3 */* 04:00:00 * terminate lua all
+schedule at 4 */* 04:00:10 * lua /xai_check.lua
+# LIFT_PHASE=1
+description 1 "configversion=5.0"
+save
+description 1 "configversion=5.1"
+save

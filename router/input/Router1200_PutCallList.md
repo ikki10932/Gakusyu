@@ -1,0 +1,108 @@
+# Router1200.cpp での PutPpHead, _PutTit, _Put 呼び出し箇所
+
+## PutPpHead の呼び出し
+- 2495行目: `if (!CDkRouter::PutPpHead("PP configuration"))`
+
+## _PutTit(tit) の呼び出し
+- 2585行目: `if (!_PutTit(tit))`
+- 2747行目: `if (!_PutTit(tit))`
+- 2955行目: `if (!_PutTit(tit))`
+- 3338行目: `if (!_PutTit(tit))`
+
+## _Put の呼び出し
+- 2578行目: `if (!_Put("#\tDK-ROUTER-CONFIGURATION Ver A1.000"))`
+- 2582行目: `if (!_Put(szBuf))`
+- 2588行目: `if (!_Put("clear configuration"))`
+- 2597行目: `if (!_Put(pCmd01, DK_Number(pCmd01)))`
+- 2644行目: `if ( !_Put(str) )`
+- 2648行目: `if ( !_Put(str) )`
+- 2684行目: `if ( !_Put("snmp syslocation \"Hall .\"") )`
+- 2693行目: `if ( !_Put(pCmd02, DK_Number(pCmd02)) )`
+- 2752行目: `if (!_Put(szBuf))`
+- 2758行目: `if (!_Put(szBuf))`
+- 2762行目: `if (!_Put("isdn terminator bri1 on"))`
+- 2813行目: `if (!_Put((CStoS)strPut))`
+- 2940行目: `if (!_Put((CStoS)strPut))`
+- 2986行目: `if (!_Put(pCmd01, DK_Number(pCmd01)))`
+- 2991行目: `if (!_Put(szPut))\treturn FALSE;`
+- 2993行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3017行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3019行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3021行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3054行目: `if (!_Put((CStoS)str5030[i])) return FALSE;`
+- 3058行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3060行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3062行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3064行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3066行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3071行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3073行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3075行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3107行目: `if (!_Put((CStoS)str8030[i])) return FALSE;`
+- 3112行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3116行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3148行目: `if (!_Put((CStoS)str8420[i])) return FALSE;`
+- 3155行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3157行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3159行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3173行目: `if (!_Put((CStoS)str5035[i])) return FALSE;`
+- 3187行目: `if (!_Put((CStoS)str5055[i])) return FALSE;`
+- 3194行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3196行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3198行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3218行目: `if (!_Put((CStoS)str8035[i])) return FALSE;`
+- 3224行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3226行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3228行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3235行目: `if (!_Put(pCmd02, DK_Number(pCmd02)))`
+- 3238行目: `if (!_Put("ip filter set oa_lan3 in 3 4 8010 8420 8421", FALSE))`
+- 3252行目: `if (!_Put(szPut, FALSE))\treturn FALSE;`
+- 3261行目: `if (!_Put(szPut, FALSE))\treturn FALSE;`
+- 3263行目: `if (!_Put("") )`
+- 3275行目: `if (!_Put(szPut, FALSE))\treturn FALSE;`
+- 3284行目: `if (!_Put(szPut, FALSE))\treturn FALSE;`
+- 3286行目: `if (!_Put("") )`
+- 3289行目: `if (!_Put("ip filter set oa_pp_lab in 9"))`
+- 3297行目: `if (!_Put(szPut, FALSE))\treturn FALSE;`
+- 3306行目: `if (!_Put(szPut, FALSE))\treturn FALSE;`
+- 3309行目: `if (!_Put("") )`
+- 3316行目: `if (!_Put(pCmd03, DK_Number(pCmd03)))`
+- 3365行目: `if (!_Put(pCmd01, DK_Number(pCmd01)))`
+- 3370行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3372行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3397行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3399行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3401行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3403行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3405行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3407行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3409行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3411行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3416行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3467行目: `if (!_Put(pCmd02, DK_Number(pCmd02)))`
+- 3471行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3473行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3475行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3477行目: `if (!_Put("ip filter 83 pass 182.248.135.70,106.186.75.198 172.16.0.0/16 tcp www,https *"))`
+- 3480行目: `if (!_Put("ip filter 84 pass * 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 tcp www,https *"))`
+- 3484行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3486行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3488行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3490行目: `if (!_Put("ip filter 88 pass 172.16.0.0/16 182.248.135.70,106.186.75.198 tcp * www,https"))`
+- 3493行目: `if (!_Put("ip filter 89 pass 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * tcp * www,https"))`
+- 3499行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3501行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3506行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3508行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3519行目: `if (!_Put(pCmd02_1, DK_Number(pCmd02_1)))`
+- 3532行目: `if (!_Put(pCmd02_2, DK_Number(pCmd02_2)))`
+- 3538行目: `if ( !_Put("ip filter 200 pass 172.21.0.0/16 * * * *") )`
+- 3543行目: `if (!_Put(szPut))`
+- 3548行目: `if (!_Put("ip filter 1401 pass 172.21.0.0/16 * * * *"))`
+- 3553行目: `if (!_Put(szPut))`
+- 3558行目: `if (!_Put("ip filter 1406 pass * 172.21.0.0/16 * * *"))`
+- 3577行目: `if (!_Put(pCmd03, DK_Number(pCmd03)))`
+- 3586行目: `if (!_Put(pCmd03_1, DK_Number(pCmd03_1)))`
+- 3594行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3596行目: `if (!_Put(szPut))\treturn FALSE;`
+- 3601行目: `if (!_Put(szPut))\treturn FALSE;`

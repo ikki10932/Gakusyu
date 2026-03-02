@@ -1,0 +1,1234 @@
+# 抽出された全コマンド一覧
+
+※抽出対象: `CDkRouter1200` の `Put` 系出力関数内にある `_Put`, `PutFmt`, `wsprintf`, 配列による一括指定（`pCmd`等）の文字列フォーマットです。
+
+## ProcIPSEC
+- `%s%s\\%s`
+- `%d.%d.%d.%d`
+- `%s\\%s\\%s\\router\\router%02dW.prm`
+- `%s%s\\%s`
+
+## PutConfig
+- `#\tDK-ROUTER-CONFIGURATION Ver A1.000`
+- `#\t%s Rev.%s`
+- `clear configuration`
+- `no schedule at 1`
+- `no schedule at 2`
+- `no schedule at 3`
+- `no schedule at 4`
+- `login password encrypted %s`
+- `login password %s`
+- `administrator password encrypted %s`
+- `administrator password %s`
+- `snmp syslocation \`
+- `snmp syslocation \`
+- `security class 1 on on`
+- `console info off`
+
+## PutIsdn
+- `line type bri1 isdn-ntt`
+- `isdn local address bri1 %s`
+- `isdn terminator bri1 on`
+
+## PutFilterOA_LAN
+- `ip filter source-route on`
+- `ip filter directed-broadcast on`
+- `ip filter 1 reject * * udp,tcp netbios_ns-netbios_ssn *`
+- `ip filter 2 reject * * udp,tcp * netbios_ns-netbios_ssn`
+- `ip filter 3 reject * * udp,tcp 135 *`
+- `ip filter 4 reject * * udp,tcp * 135`
+- `ip filter 5 reject * * udp,tcp 445 *`
+- `ip filter 6 reject * * udp,tcp * 445`
+- `ip filter 9 reject * * * * *`
+- `ip filter 100 pass-log * * * * *`
+- `ip filter 101 reject * * established * netbios_ns-netbios_ssn`
+- `ip filter 102 reject * * established * 135`
+- `ip filter 103 reject * * established * 445`
+- `ip filter 104 reject * * established * https`
+- `ip filter 105 reject * * established * www`
+- `ip filter 5010 reject 192.168.%d.0/24 * * * *`
+- `ip filter 5015 reject * 192.168.%d.0/24 * * *`
+- `%s`
+- `%s`
+- `%s`
+- `%s`
+- `%s`
+- `%s`
+- `ip filter 5025 pass 192.168.%d.0/24 %s,%s udp * domain`
+- `ip filter 5026 pass 192.168.%d.1 %s,%s udp * domain`
+- `ip filter 5028 pass 192.168.%d.2-192.168.%d.254 %s,%s udp * domain`
+- `ip filter 6400 pass 192.168.%d.0/24 * * * *`
+- `ip filter 6405 pass * 192.168.%d.0/24 * * *`
+- `ip filter 6410 pass * * udp dhcpc dhcps`
+- `ip filter 8010 reject 192.168.%d.0/24 * * * *`
+- `ip filter 8015 reject * 192.168.%d.0/24 * * *`
+- `ip filter 8025 pass 192.168.%d.0/24 %s,%s udp * domain`
+- `ip filter 8026 pass 192.168.%d.1 %s,%s udp * domain`
+- `ip filter 8028 pass 192.168.%d.2-192.168.%d.254 %s,%s udp * domain`
+- `ip filter 8420 pass-log %s %s icmp * *`
+- `ip filter 8425 pass-log %s %s icmp * *`
+- `ip filter dynamic 5025 192.168.%d.0/24 %s,%s domain`
+- `ip filter dynamic 5026 192.168.%d.1 %s,%s domain`
+- `ip filter dynamic 5028 192.168.%d.2-192.168.%d.254 %s,%s domain`
+- `ip filter dynamic 8025 192.168.%d.0/24 %s,%s domain`
+- `ip filter dynamic 8026 192.168.%d.1 %s,%s domain`
+- `ip filter dynamic 8028 192.168.%d.2-192.168.%d.254 %s,%s domain`
+- `ip filter dynamic 8530 %s 192.168.%d.2-192.168.%d.254 ftp`
+- `ip filter dynamic 8550 %s 192.168.%d.2-192.168.%d.254 filter 8550 in 8555`
+- `ip filter dynamic 8590 %s 192.168.%d.2-192.168.%d.254 filter 8590 in 8595`
+- `ip filter set oa_lan1 in 6400 6410`
+- `ip filter set oa_lan1 out 6405`
+- `ip filter set oa_lan3 in 3 4 8010 8420 8421`
+- `%s%s%s%s%s%s%s`
+- ` dynamic%s%s%s`
+- `ip filter set oa_lan3 out 3 4 104 105 8015%s%s%s%s 8425 8426%s%s%s%s`
+- ` dynamic%s%s%s%s`
+- `ip filter set oa_pp_lab in 9`
+- `ip filter set oa_pp_lab out 1 2 3 4 5 6 104 105 5015%s%s%s%s`
+- ` dynamic%s%s%s%s`
+- `ip filter set getlog in 1 2 3 4 5 6 100`
+- `ip filter set getlog out 1 2 3 4 5 6 100`
+
+## PutFilter
+- `ip filter source-route on`
+- `ip filter directed-broadcast on`
+- `ip filter 1 reject * * udp,tcp netbios_ns-netbios_ssn *`
+- `ip filter 2 reject * * udp,tcp * netbios_ns-netbios_ssn`
+- `ip filter 3 reject * * udp,tcp 135 *`
+- `ip filter 4 reject * * udp,tcp * 135`
+- `ip filter 5 reject * * udp,tcp 445 *`
+- `ip filter 6 reject * * udp,tcp * 445`
+- `ip filter 9 reject * * * * *`
+- `ip filter 10 reject %s * * * *`
+- `ip filter 15 reject * %s * * *`
+- `%s`
+- `%s`
+- `%s`
+- `%s`
+- `%s`
+- `%s`
+- `ip filter 20 pass %s,%s 172.16.0.0/16 udp domain *`
+- `ip filter 21 pass %s,%s 172.16.5.0/24 udp domain *`
+- `ip filter 22 pass %s,%s 172.16.15.0/24 udp domain *`
+- `ip filter 23 pass %s,%s 172.16.60.0/24 udp domain *`
+- `ip filter 25 pass 172.16.0.0/16 %s,%s udp * domain`
+- `ip filter 26 pass 172.16.5.0/24 %s,%s udp * domain`
+- `ip filter 27 pass 172.16.15.0/24 %s,%s udp * domain`
+- `ip filter 28 pass 172.16.60.0/24 %s,%s udp * domain`
+- `ip filter 29 pass * %s,%s udp * domain`
+- `ip filter 30 pass 61.114.182.53 172.16.0.0/16 tcp https *`
+- `ip filter 31 pass 61.114.182.53 172.16.5.0/24 tcp https *`
+- `ip filter 32 pass 61.114.182.53 172.16.15.0/24 tcp https *`
+- `ip filter 33 pass 61.114.182.53 172.16.60.0/24 tcp https *`
+- `ip filter 35 pass 172.16.0.0/16 61.114.182.53 tcp * https`
+- `ip filter 36 pass 172.16.5.0/24 61.114.182.53 tcp * https`
+- `ip filter 37 pass 172.16.15.0/24 61.114.182.53 tcp * https`
+- `ip filter 38 pass 172.16.60.0/24 61.114.182.53 tcp * https`
+- `ip filter 40 pass 61.114.182.54 172.16.0.0/16 tcp www *`
+- `ip filter 41 pass 61.114.182.54 172.16.5.0/24 tcp www *`
+- `ip filter 42 pass 61.114.182.54 172.16.15.0/24 tcp www *`
+- `ip filter 43 pass 61.114.182.54 172.16.60.0/24 tcp www *`
+- `ip filter 45 pass 172.16.0.0/16 61.114.182.54 tcp * www`
+- `ip filter 46 pass 172.16.5.0/24 61.114.182.54 tcp * www`
+- `ip filter 47 pass 172.16.15.0/24 61.114.182.54 tcp * www`
+- `ip filter 48 pass 172.16.60.0/24 61.114.182.54 tcp * www`
+- `ip filter 50 pass 61.114.186.0/25 172.16.0.0/16 tcp www,https *`
+- `ip filter 51 pass 61.114.186.0/25 172.16.5.0/24 tcp www,https *`
+- `ip filter 52 pass 61.114.186.0/25 172.16.15.0/24 tcp www,https *`
+- `ip filter 53 pass 61.114.186.0/25 172.16.60.0/24 tcp www,https *`
+- `ip filter 54 pass 61.114.186.0/25 172.16.80.0/22 tcp www,https *`
+- `ip filter 55 pass 172.16.0.0/16 61.114.186.0/25 tcp * www,https`
+- `ip filter 56 pass 172.16.5.0/24 61.114.186.0/25 tcp * www,https`
+- `ip filter 57 pass 172.16.15.0/24 61.114.186.0/25 tcp * www,https`
+- `ip filter 58 pass 172.16.60.0/24 61.114.186.0/25 tcp * www,https`
+- `ip filter 59 pass 172.16.80.0/22 61.114.186.0/25 tcp * www,https`
+- `ip filter 60 pass 61.114.177.148 172.16.0.0/16 tcp https *`
+- `ip filter 61 pass 61.114.177.148 172.16.5.0/24 tcp https *`
+- `ip filter 62 pass 61.114.177.148 172.16.15.0/24 tcp https *`
+- `ip filter 63 pass 61.114.177.148 172.16.60.0/24 tcp https *`
+- `ip filter 65 pass 172.16.0.0/16 61.114.177.148 tcp * https`
+- `ip filter 66 pass 172.16.5.0/24 61.114.177.148 tcp * https`
+- `ip filter 67 pass 172.16.15.0/24 61.114.177.148 tcp * https`
+- `ip filter 68 pass 172.16.60.0/24 61.114.177.148 tcp * https`
+- `ip filter 70 pass 202.229.106.177 172.16.0.0/16 tcp www,https *`
+- `ip filter 71 pass 202.229.106.177 172.16.5.0/24 tcp www,https *`
+- `ip filter 72 pass 202.229.106.177 172.16.15.0/24 tcp www,https *`
+- `ip filter 73 pass 202.229.106.177 172.16.60.0/24 tcp www,https *`
+- `ip filter 74 pass 202.229.106.177 172.16.80.0/22 tcp www,https *`
+- `ip filter 75 pass 172.16.0.0/16 202.229.106.177 tcp * www,https`
+- `ip filter 76 pass 172.16.5.0/24 202.229.106.177 tcp * www,https`
+- `ip filter 77 pass 172.16.15.0/24 202.229.106.177 tcp * www,https`
+- `ip filter 78 pass 172.16.60.0/24 202.229.106.177 tcp * www,https`
+- `ip filter 79 pass 172.16.80.0/22 202.229.106.177 tcp * www,https`
+- `ip filter 80 pass 202.226.76.11 %s tcp https *`
+- `ip filter 81 pass 202.226.76.11 %s tcp www *`
+- `ip filter 82 pass %s 172.16.15.0/24 tcp www,https *`
+- `ip filter 83 pass 182.248.135.70,106.186.75.198 172.16.0.0/16 tcp www,https *`
+- `ip filter 84 pass * 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 tcp www,https *`
+- `ip filter 85 pass %s 202.226.76.11 tcp * https`
+- `ip filter 86 pass %s 202.226.76.11 tcp * www`
+- `ip filter 87 pass 172.16.15.0/24 %s tcp * www,https`
+- `ip filter 88 pass 172.16.0.0/16 182.248.135.70,106.186.75.198 tcp * www,https`
+- `ip filter 89 pass 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * tcp * www,https`
+- `ip filter 90 pass * %s tcp pop3 *`
+- `ip filter 95 pass %s * tcp * pop3`
+- `ip filter 91 pass * %s tcp smtp *`
+- `ip filter 96 pass %s * tcp * smtp`
+- `ip filter 92 pass * 172.16.5.0/24 tcp https,5222,5223 *`
+- `ip filter 93 pass * 172.16.5.0/24 udp domain,ntp *`
+- `ip filter 94 pass * 172.16.5.0/24 icmp`
+- `ip filter 97 pass 172.16.5.0/24 * tcp * https,5222,5223`
+- `ip filter 98 pass 172.16.5.0/24 * udp * domain,ntp`
+- `ip filter 99 pass 172.16.5.0/24 * icmp`
+- `ip filter 100 pass-log * * * * *`
+- `ip filter 101 reject * * established * netbios_ns-netbios_ssn`
+- `ip filter 102 reject * * established * 135`
+- `ip filter 103 reject * * established * 445`
+- `ip filter 104 reject * * established * https`
+- `ip filter 105 reject * * established * www`
+- `ip filter 106 reject * * established * pop3`
+- `ip filter 107 reject * * established * smtp`
+- `ip filter 200 pass 172.21.0.0/16 * * * *`
+- `ip filter 1400 pass %s * * * *`
+- `ip filter 1401 pass 172.21.0.0/16 * * * *`
+- `ip filter 1405 pass * %s * * *`
+- `ip filter 1406 pass * 172.21.0.0/16 * * *`
+- `ip filter 1410 pass * * udp dhcpc dhcps`
+- `ip filter 1430 pass 10.0.0.0/8 10.0.208.0/20 * * *`
+- `ip filter 1431 pass 10.0.208.0/20 10.0.0.0/8 * * *`
+- `ip filter 1432 pass 10.0.0.0/8 172.30.1.110 tcp * 21`
+- `ip filter 1433 pass 172.30.1.110 10.0.0.0/8 tcp 21 *`
+- `ip filter 1434 pass 10.0.0.0/8 172.30.1.110 tcp * ftpdata`
+- `ip filter 1435 pass 172.30.1.110 10.0.0.0/8 tcp ftpdata *`
+- `ip filter 1436 pass 10.0.0.0/8 172.31.191.0/24 * * *`
+- `ip filter 1437 pass 172.31.191.0/24 10.0.0.0/8 * * *`
+- `ip filter 1438 pass 10.0.0.0/8 10.0.0.0/8 * * *`
+- `ip filter 1440 pass 172.18.0.0/24 10.0.192.0/18 * * *`
+- `ip filter 1441 pass 10.0.192.0/18 172.18.0.0/24 * * *`
+- `ip filter 1446 pass 172.16.252.1 10.0.192.0/18 tcp 3389 *`
+- `ip filter 1447 pass 10.0.192.0/18 172.16.252.1 tcp * 3389`
+- `ip filter 2010 reject %s * * * *`
+- `ip filter 2015 reject * %s * * *`
+- `ip filter 2025 pass 172.16.0.0/16 %s,%s udp * domain`
+- `ip filter 2026 pass * %s,%s udp * domain`
+- `ip filter 2027 pass 172.16.15.0/24 %s,%s udp * domain`
+- `ip filter 2028 pass 172.16.60.0/24 %s,%s udp * domain`
+- `ip filter 2029 pass * %s,%s udp * domain`
+- `ip filter 2030 pass 61.114.182.53 172.16.0.0/16 tcp https *`
+- `ip filter 2031 pass 61.114.182.53 172.16.5.0/24 tcp https *`
+- `ip filter 2032 pass 61.114.182.53 172.16.15.0/24 tcp https *`
+- `ip filter 2033 pass 61.114.182.53 172.16.60.0/24 tcp https *`
+- `ip filter 2035 pass 172.16.0.0/16 61.114.182.53 tcp * https`
+- `ip filter 2036 pass 172.16.5.0/24 61.114.182.53 tcp * https`
+- `ip filter 2037 pass 172.16.15.0/24 61.114.182.53 tcp * https`
+- `ip filter 2038 pass 172.16.60.0/24 61.114.182.53 tcp * https`
+- `ip filter 2040 pass 61.114.182.54 172.16.0.0/16 tcp www *`
+- `ip filter 2041 pass 61.114.182.54 172.16.5.0/24 tcp www *`
+- `ip filter 2042 pass 61.114.182.54 172.16.15.0/24 tcp www *`
+- `ip filter 2043 pass 61.114.182.54 172.16.60.0/24 tcp www *`
+- `ip filter 2045 pass 172.16.0.0/16 61.114.182.54 tcp * www`
+- `ip filter 2046 pass 172.16.5.0/24 61.114.182.54 tcp * www`
+- `ip filter 2047 pass 172.16.15.0/24 61.114.182.54 tcp * www`
+- `ip filter 2048 pass 172.16.60.0/24 61.114.182.54 tcp * www`
+- `ip filter 2050 pass 61.114.186.0/25 172.16.0.0/16 tcp www,https *`
+- `ip filter 2051 pass 61.114.186.0/25 172.16.5.0/24 tcp www,https *`
+- `ip filter 2052 pass 61.114.186.0/25 172.16.15.0/24 tcp www,https *`
+- `ip filter 2053 pass 61.114.186.0/25 172.16.60.0/24 tcp www,https *`
+- `ip filter 2054 pass 61.114.186.0/25 172.16.80.0/22 tcp www,https *`
+- `ip filter 2055 pass 172.16.0.0/16 61.114.186.0/25 tcp * www,https`
+- `ip filter 2056 pass 172.16.5.0/24 61.114.186.0/25 tcp * www,https`
+- `ip filter 2057 pass 172.16.15.0/24 61.114.186.0/25 tcp * www,https`
+- `ip filter 2058 pass 172.16.60.0/24 61.114.186.0/25 tcp * www,https`
+- `ip filter 2059 pass 172.16.80.0/22 61.114.186.0/25 tcp * www,https`
+- `ip filter 2060 pass 61.114.177.148 172.16.0.0/16 tcp https *`
+- `ip filter 2061 pass 61.114.177.148 172.16.5.0/24 tcp https *`
+- `ip filter 2062 pass 61.114.177.148 172.16.15.0/24 tcp https *`
+- `ip filter 2063 pass 61.114.177.148 172.16.60.0/24 tcp https *`
+- `ip filter 2065 pass 172.16.0.0/16 61.114.177.148 tcp * https`
+- `ip filter 2066 pass 172.16.5.0/24 61.114.177.148 tcp * https`
+- `ip filter 2067 pass 172.16.15.0/24 61.114.177.148 tcp * https`
+- `ip filter 2068 pass 172.16.60.0/24 61.114.177.148 tcp * https`
+- `ip filter 2070 pass 202.229.106.177 172.16.0.0/16 tcp www,https *`
+- `ip filter 2071 pass 202.229.106.177 172.16.5.0/24 tcp www,https *`
+- `ip filter 2072 pass 202.229.106.177 172.16.15.0/24 tcp www,https *`
+- `ip filter 2073 pass 202.229.106.177 172.16.60.0/24 tcp www,https *`
+- `ip filter 2074 pass 202.229.106.177 172.16.80.0/22 tcp www,https *`
+- `ip filter 2075 pass 172.16.0.0/16 202.229.106.177 tcp * www,https`
+- `ip filter 2076 pass 172.16.5.0/24 202.229.106.177 tcp * www,https`
+- `ip filter 2077 pass 172.16.15.0/24 202.229.106.177 tcp * www,https`
+- `ip filter 2078 pass 172.16.60.0/24 202.229.106.177 tcp * www,https`
+- `ip filter 2079 pass 172.16.80.0/22 202.229.106.177 tcp * www,https`
+- `ip filter 2080 pass 202.226.76.11 %s tcp https *`
+- `ip filter 2081 pass 202.226.76.11 %s tcp www *`
+- `ip filter 2082 pass %s 172.16.15.0/24 tcp www,https *`
+- `ip filter 2083 pass 182.248.135.70,106.186.75.198 172.16.0.0/16 tcp www,https *`
+- `ip filter 2084 pass * 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 tcp www,https *`
+- `ip filter 2085 pass %s 202.226.76.11 tcp * https`
+- `ip filter 2086 pass %s 202.226.76.11 tcp * www`
+- `ip filter 2087 pass 172.16.15.0/24 %s tcp * www,https`
+- `ip filter 2088 pass 172.16.0.0/16 182.248.135.70,106.186.75.198 tcp * www,https`
+- `ip filter 2089 pass 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * tcp * www,https`
+- `ip filter 2090 pass * %s tcp pop3 *`
+- `ip filter 2095 pass %s * tcp * pop3`
+- `ip filter 2091 pass * %s tcp smtp *`
+- `ip filter 2096 pass %s * tcp * smtp`
+- `ip filter 2092 pass * 172.16.5.0/24 tcp https,5222,5223 *`
+- `ip filter 2093 pass * 172.16.5.0/24 udp domain,ntp *`
+- `ip filter 2094 pass * 172.16.5.0/24 icmp`
+- `ip filter 2097 pass 172.16.5.0/24 * tcp * https,5222,5223`
+- `ip filter 2098 pass 172.16.5.0/24 * udp * domain,ntp`
+- `ip filter 2099 pass 172.16.5.0/24 * icmp`
+- `ip filter 2450 pass %s 61.114.186.0/25 tcp * https`
+- `ip filter 2451 pass 61.114.186.0/25 %s tcp https *`
+- `ip filter 3450 pass %s 61.114.186.0/25 tcp * https`
+- `ip filter 3451 pass 61.114.186.0/25 %s tcp https *`
+- `ip filter 2444 pass %s * tcp * www,https`
+- `ip filter 2445 pass * %s tcp www,https *`
+- `ip filter 3010 reject %s * * * *`
+- `ip filter 3015 reject * %s * * *`
+- `ip filter 3025 pass 172.16.0.0/16 %s,%s udp * domain`
+- `ip filter 3026 pass 172.16.5.0/24 %s,%s udp * domain`
+- `ip filter 3027 pass 172.16.15.0/24 %s,%s udp * domain`
+- `ip filter 3028 pass 172.16.60.0/24 %s,%s udp * domain`
+- `ip filter 3029 pass * %s,%s udp * domain`
+- `ip filter 3030 pass 61.114.182.53 172.16.0.0/16 tcp https *`
+- `ip filter 3031 pass 61.114.182.53 172.16.5.0/24 tcp https *`
+- `ip filter 3032 pass 61.114.182.53 172.16.15.0/24 tcp https *`
+- `ip filter 3033 pass 61.114.182.53 172.16.60.0/24 tcp https *`
+- `ip filter 3035 pass 172.16.0.0/16 61.114.182.53 tcp * https`
+- `ip filter 3036 pass 172.16.5.0/24 61.114.182.53 tcp * https`
+- `ip filter 3037 pass 172.16.15.0/24 61.114.182.53 tcp * https`
+- `ip filter 3038 pass 172.16.60.0/24 61.114.182.53 tcp * https`
+- `ip filter 3040 pass 61.114.182.54 172.16.0.0/16 tcp www *`
+- `ip filter 3041 pass 61.114.182.54 172.16.5.0/24 tcp www *`
+- `ip filter 3042 pass 61.114.182.54 172.16.15.0/24 tcp www *`
+- `ip filter 3043 pass 61.114.182.54 172.16.60.0/24 tcp www *`
+- `ip filter 3045 pass 172.16.0.0/16 61.114.182.54 tcp * www`
+- `ip filter 3046 pass 172.16.5.0/24 61.114.182.54 tcp * www`
+- `ip filter 3047 pass 172.16.15.0/24 61.114.182.54 tcp * www`
+- `ip filter 3048 pass 172.16.60.0/24 61.114.182.54 tcp * www`
+- `ip filter 3050 pass 61.114.186.0/25 172.16.0.0/16 tcp www,https *`
+- `ip filter 3051 pass 61.114.186.0/25 172.16.5.0/24 tcp www,https *`
+- `ip filter 3052 pass 61.114.186.0/25 172.16.15.0/24 tcp www,https *`
+- `ip filter 3053 pass 61.114.186.0/25 172.16.60.0/24 tcp www,https *`
+- `ip filter 3054 pass 61.114.186.0/25 172.16.80.0/22 tcp www,https *`
+- `ip filter 3055 pass 172.16.0.0/16 61.114.186.0/25 tcp * www,https`
+- `ip filter 3056 pass 172.16.5.0/24 61.114.186.0/25 tcp * www,https`
+- `ip filter 3057 pass 172.16.15.0/24 61.114.186.0/25 tcp * www,https`
+- `ip filter 3058 pass 172.16.60.0/24 61.114.186.0/25 tcp * www,https`
+- `ip filter 3059 pass 172.16.80.0/22 61.114.186.0/25 tcp * www,https`
+- `ip filter 3060 pass 61.114.177.148 172.16.0.0/16 tcp https *`
+- `ip filter 3061 pass 61.114.177.148 172.16.5.0/24 tcp https *`
+- `ip filter 3062 pass 61.114.177.148 172.16.15.0/24 tcp https *`
+- `ip filter 3063 pass 61.114.177.148 172.16.60.0/24 tcp https *`
+- `ip filter 3065 pass 172.16.0.0/16 61.114.177.148 tcp * https`
+- `ip filter 3066 pass 172.16.5.0/24 61.114.177.148 tcp * https`
+- `ip filter 3067 pass 172.16.15.0/24 61.114.177.148 tcp * https`
+- `ip filter 3068 pass 172.16.60.0/24 61.114.177.148 tcp * https`
+- `ip filter 3070 pass 202.229.106.177 172.16.0.0/16 tcp www,https *`
+- `ip filter 3071 pass 202.229.106.177 172.16.5.0/24 tcp www,https *`
+- `ip filter 3072 pass 202.229.106.177 172.16.15.0/24 tcp www,https *`
+- `ip filter 3073 pass 202.229.106.177 172.16.60.0/24 tcp www,https *`
+- `ip filter 3074 pass 202.229.106.177 172.16.80.0/22 tcp www,https *`
+- `ip filter 3075 pass 172.16.0.0/16 202.229.106.177 tcp * www,https`
+- `ip filter 3076 pass 172.16.5.0/24 202.229.106.177 tcp * www,https`
+- `ip filter 3077 pass 172.16.15.0/24 202.229.106.177 tcp * www,https`
+- `ip filter 3078 pass 172.16.60.0/24 202.229.106.177 tcp * www,https`
+- `ip filter 3079 pass 172.16.80.0/22 202.229.106.177 tcp * www,https`
+- `ip filter 3080 pass 202.226.76.11 %s tcp https *`
+- `ip filter 3081 pass 202.226.76.11 %s tcp www *`
+- `ip filter 3082 pass %s 172.16.15.0/24 tcp www,https *`
+- `ip filter 3083 pass 182.248.135.70,106.186.75.198 172.16.0.0/16 tcp www,https *`
+- `ip filter 3084 pass * 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 tcp www,https *`
+- `ip filter 3085 pass %s 202.226.76.11 tcp * https`
+- `ip filter 3086 pass %s 202.226.76.11 tcp * www`
+- `ip filter 3087 pass 172.16.15.0/24 %s tcp * www,https`
+- `ip filter 3088 pass 172.16.0.0/16 182.248.135.70,106.186.75.198 tcp * www,https`
+- `ip filter 3089 pass 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * tcp * www,https`
+- `ip filter 3090 pass * %s tcp pop3 *`
+- `ip filter 3095 pass %s * tcp * pop3`
+- `ip filter 3091 pass * %s tcp smtp *`
+- `ip filter 3096 pass %s * tcp * smtp`
+- `ip filter 3092 pass * 172.16.5.0/24 tcp https,5222,5223 *`
+- `ip filter 3093 pass * 172.16.5.0/24 udp domain,ntp *`
+- `ip filter 3094 pass * 172.16.5.0/24 icmp`
+- `ip filter 3097 pass 172.16.5.0/24 * tcp * https,5222,5223`
+- `ip filter 3098 pass 172.16.5.0/24 * udp * domain,ntp`
+- `ip filter 3099 pass 172.16.5.0/24 * icmp`
+- `ip filter 3420 pass-log %s %s icmp * *`
+- `ip filter 3421 pass-log %s 172.16.60.0/24 icmp * *`
+- `ip filter 3422 pass-log %s 172.16.0.0/16 icmp * *`
+- `ip filter 3427 pass-log 172.16.0.0/16 %s icmp * *`
+- `ip filter 3425 pass-log %s %s icmp * *`
+- `ip filter 3426 pass-log 172.16.60.0/24 %s icmp * *`
+- `ip filter 3442 pass %s %s udp * domain`
+- `ip filter 3443 pass %s %s udp domain *`
+- `ip filter 3444 pass %s * tcp * www,https`
+- `ip filter 3445 pass * %s tcp www,https *`
+- `ip filter 3446 pass-log %s 10.0.192.0/18 icmp * *`
+- `ip filter 3447 pass-log 10.0.192.0/18 %s icmp * *`
+- `ip filter 3448 pass-log %s 10.0.192.0/18 tcp 3389 *`
+- `ip filter 3449 pass-log 10.0.192.0/18 %s tcp * 3389`
+- `ip filter 3450 pass-log %s 172.16.0.0/16 icmp * *`
+- `ip filter 3451 pass-log 172.16.0.0/16 %s icmp * *`
+- `ip filter 3500 pass-log %s 172.16.60.0/24 tcp,udp * netbios_ns-netbios_ssn`
+- `ip filter 3501 pass-log %s 172.16.0.0/16 tcp,udp * netbios_ns-netbios_ssn`
+- `ip filter 3506 pass-log 172.16.0.0/16 %s tcp,udp netbios_ns-netbios_ssn * `
+- `ip filter 3521 pass-log %s 172.16.0.0/16 tcp,udp * 445`
+- `ip filter 3526 pass-log 172.16.0.0/16 %s tcp,udp 445 *`
+- `ip filter 3505 pass-log 172.16.60.0/24 %s tcp,udp netbios_ns-netbios_ssn *`
+- `ip filter 3510 pass-log %s 172.16.60.0/24 tcp,udp * 135`
+- `ip filter 3515 pass-log 172.16.60.0/24 %s tcp,udp 135 *`
+- `ip filter 3520 pass-log %s 172.16.60.0/24 tcp,udp * 445`
+- `ip filter 3525 pass-log 172.16.60.0/24 %s tcp,udp 445 *`
+- `ip filter 3530 pass %s 172.16.60.0/24 tcp * 21`
+- `ip filter 3535 pass 172.16.60.0/24 %s tcp 21 *`
+- `ip filter 3540 pass %s 172.16.60.0/24 tcp * ftpdata`
+- `ip filter 3545 pass 172.16.60.0/24 %s tcp ftpdata *`
+- `ip filter 3550 pass %s 172.16.60.0/24 tcp 58010-58019 2638`
+- `ip filter 3555 pass 172.16.60.0/24 %s tcp 2638 58010-58019`
+- `ip filter 3560 pass-log %s 172.16.60.0/24 tcp,udp netbios_ns-netbios_ssn *`
+- `ip filter 3561 pass-log %s 172.16.0.0/16 tcp,udp netbios_ns-netbios_ssn *`
+- `ip filter 3566 pass-log 172.16.0.0/16 %s tcp,udp * netbios_ns-netbios_ssn`
+- `ip filter 3581 pass-log %s 172.16.0.0/16 tcp,udp 445 *`
+- `ip filter 3586 pass-log 172.16.0.0/16 %s tcp,udp * 445`
+- `ip filter 3565 pass-log 172.16.60.0/24 %s tcp,udp * netbios_ns-netbios_ssn`
+- `ip filter 3570 pass-log %s 172.16.60.0/24 tcp,udp 135 *`
+- `ip filter 3575 pass-log 172.16.60.0/24 %s tcp,udp * 135`
+- `ip filter 3580 pass-log %s 172.16.60.0/24 tcp,udp 445 *`
+- `ip filter 3585 pass-log 172.16.60.0/24 %s tcp,udp * 445`
+- `ip filter 3590 pass %s 172.16.60.0/24 tcp * 58006`
+- `ip filter 3595 pass 172.16.60.0/24 %s tcp 58006 *`
+- `ip filter 3800 pass * %s * * *`
+- `ip filter %d pass %s %s * * *`
+- `ip filter %d pass %s %s * * *`
+- `ip filter 3805 pass %s * * * *`
+- `ip filter %d pass %s %s * * *`
+- `ip filter %d pass %s %s * * *`
+- `ip filter 10000 reject %s * * * *`
+- `ip filter 10005 reject * %s * * *`
+- `%s`
+- `%s`
+- `%s`
+- `%s`
+- `ip filter 10010 pass %s,%s %s esp * *`
+- `ip filter 10015 pass %s %s,%s esp * *`
+- `ip filter 10020 pass %s,%s %s udp * 500`
+- `ip filter 10025 pass %s %s,%s udp * 500`
+- `ip filter 10030 pass %s,%s %s icmp * *`
+- `ip filter 10035 pass %s %s,%s icmp * *`
+- `ip filter 10010 pass %s %s esp * *`
+- `ip filter 10015 pass %s %s esp * *`
+- `ip filter 10020 pass %s %s udp * 500`
+- `ip filter 10025 pass %s %s udp * 500`
+- `ip filter 10030 pass %s %s icmp * *`
+- `ip filter 10035 pass %s %s icmp * *`
+- `ip filter 10010 pass %s %s esp * *`
+- `ip filter 10015 pass %s %s esp * *`
+- `ip filter 10020 pass %s %s udp * 500`
+- `ip filter 10025 pass %s %s udp * 500`
+- `ip filter 10030 pass %s %s icmp * *`
+- `ip filter 10035 pass %s %s icmp * *`
+- `ip filter 10200 pass %s %s tcp * 4500`
+- `ip filter 10201 pass %s %s tcp * 4500`
+- `ip filter 10205 pass %s %s tcp * 4500`
+- `ip filter 10206 pass %s %s tcp * 4500`
+- `ip filter 10210 pass 172.16.21.1 192.168.210.3 tcp * 21`
+- `ip filter 10211 pass 172.16.21.1 192.168.210.4 tcp * 21`
+- `ip filter 101402 pass * %s-%s udp ntp *`
+- `ip filter 101404 pass * %s-%s tcp www,https *`
+- `ip filter 101406 pass %s-%s %s udp * *`
+- `ip filter 101407 pass %s-%s * udp * ntp`
+- `ip filter 101408 pass %s-%s * udp * domain`
+- `ip filter 101409 pass %s-%s * tcp * www,https`
+- `ip filter 101402 pass * %s-%s udp ntp *`
+- `ip filter 101404 pass * %s-%s tcp www,https *`
+- `ip filter 101406 pass %s-%s %s udp * *`
+- `ip filter 101407 pass %s-%s * udp * ntp`
+- `ip filter 101408 pass %s-%s * udp * domain`
+- `ip filter 101409 pass %s-%s * tcp * www,https`
+- `ip filter 10500 pass * %s tcp * %d`
+- `ip filter 10505 pass %s * tcp %d`
+- `ip filter 10510 pass %s %s udp * 500`
+- `ip filter 10520 pass %s %s esp * *`
+- `ip filter 10525 pass %s %s esp * *`
+- `ip filter 10550 pass %s %s udp * 1701`
+- `ip filter 10560 pass %s %s udp * 4500`
+- `ip filter 10575 pass %s %s udp * *`
+- `ip filter 10600 pass 172.16.60.0/24 172.16.60.0/24 tcp * 58300`
+- `ip filter 10605 pass 172.16.60.0/24 172.16.60.0/24 tcp 58300 *`
+- `ip filter 10610 pass 172.16.60.0/24 172.16.60.0/24 udp 58301 *`
+- `ip filter 10615 pass 172.16.60.0/24 172.16.60.0/24 udp * 58301`
+- `ip filter 10620 pass 172.16.60.0/24 172.16.60.0/24 tcp * %d`
+- `ip filter 10625 pass 172.16.60.0/24 172.16.60.0/24 tcp %d *`
+- `ip filter 10650 pass %s * tcp * 58300`
+- `ip filter 10655 pass * %s tcp 58300 *`
+- `ip filter 10660 pass %s * udp 58301 *`
+- `ip filter 10665 pass * %s udp * 58301`
+- `ip filter 10670 pass %s * tcp * %d`
+- `ip filter 10675 pass * %s tcp %d *`
+- `ip filter 12600 pass %s 172.16.5.0/24 udp * 500`
+- `ip filter 12650 pass 172.16.5.0/24 %s udp * 500`
+- `ip filter 12700 pass %s 172.16.5.0/24 esp * *`
+- `ip filter 12750 pass 172.16.5.0/24 %s esp * *`
+- `ip filter dynamic 25 172.16.0.0/16 %s,%s domain`
+- `ip filter dynamic 26 172.16.5.0/24 %s,%s domain`
+- `ip filter dynamic 27 172.16.15.0/24 %s,%s domain`
+- `ip filter dynamic 28 172.16.60.0/24 %s,%s domain`
+- `ip filter dynamic 29 * %s,%s domain`
+- `ip filter dynamic 35 172.16.0.0/16 61.114.182.53 filter 35 in 30`
+- `ip filter dynamic 36 172.16.5.0/24 61.114.182.53 filter 36 in 31`
+- `ip filter dynamic 37 172.16.15.0/24 61.114.182.53 filter 37 in 32`
+- `ip filter dynamic 38 172.16.60.0/24 61.114.182.53 filter 38 in 33`
+- `ip filter dynamic 45 172.16.0.0/16 61.114.182.54 filter 45 in 40`
+- `ip filter dynamic 46 172.16.5.0/24 61.114.182.54 filter 46 in 41`
+- `ip filter dynamic 47 172.16.15.0/24 61.114.182.54 filter 47 in 42`
+- `ip filter dynamic 48 172.16.60.0/24 61.114.182.54 filter 48 in 43`
+- `ip filter dynamic 55 172.16.0.0/16 61.114.186.0/25 filter 55 in 50`
+- `ip filter dynamic 56 172.16.5.0/24 61.114.186.0/25 filter 56 in 51`
+- `ip filter dynamic 57 172.16.15.0/24 61.114.186.0/25 filter 57 in 52`
+- `ip filter dynamic 58 172.16.60.0/24 61.114.186.0/25 filter 58 in 53`
+- `ip filter dynamic 59 172.16.80.0/22 61.114.186.0/25 filter 59 in 54`
+- `ip filter dynamic 65 172.16.0.0/16 61.114.177.148 filter 65 in 60`
+- `ip filter dynamic 66 172.16.5.0/24 61.114.177.148 filter 66 in 61`
+- `ip filter dynamic 67 172.16.15.0/24 61.114.177.148 filter 67 in 62`
+- `ip filter dynamic 68 172.16.60.0/24 61.114.177.148 filter 68 in 63`
+- `ip filter dynamic 75 172.16.0.0/16 202.229.106.177 filter 75 in 70`
+- `ip filter dynamic 76 172.16.5.0/24 202.229.106.177 filter 76 in 71`
+- `ip filter dynamic 77 172.16.15.0/24 202.229.106.177 filter 77 in 72`
+- `ip filter dynamic 78 172.16.60.0/24 202.229.106.177 filter 78 in 73`
+- `ip filter dynamic 79 172.16.80.0/22 202.229.106.177 filter 79 in 74`
+- `ip filter dynamic 85 %s * filter 85 in 80`
+- `ip filter dynamic 86 %s * filter 86 in 81`
+- `ip filter dynamic 87 172.16.15.0/24 * filter 87 in 82`
+- `ip filter dynamic 88 172.16.0.0/16 * filter 88 in 83`
+- `ip filter dynamic 89 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * filter 89 in 84`
+- `ip filter dynamic 95 %s * filter 95 in 90`
+- `ip filter dynamic 96 %s * filter 96 in 91`
+- `ip filter dynamic 97 172.16.5.0/24 * filter 97 in 92`
+- `ip filter dynamic 98 172.16.5.0/24 * filter 98 in 93`
+- `ip filter dynamic 99 172.16.5.0/24 * filter 99 in 94`
+- `ip filter dynamic 2097 172.16.5.0/24 * filter 2097 in 2092`
+- `ip filter dynamic 2098 172.16.5.0/24 * filter 2098 in 2093`
+- `ip filter dynamic 2099 172.16.5.0/24 * filter 2099 in 2094`
+- `ip filter dynamic 3097 172.16.5.0/24 * filter 3097 in 3092`
+- `ip filter dynamic 3098 172.16.5.0/24 * filter 3098 in 3093`
+- `ip filter dynamic 3099 172.16.5.0/24 * filter 3099 in 3094`
+- `ip filter dynamic 2025 172.16.0.0/16 %s,%s domain`
+- `ip filter dynamic 2026 * %s,%s domain`
+- `ip filter dynamic 2027 172.16.15.0/24 %s,%s domain`
+- `ip filter dynamic 2028 172.16.60.0/24 %s,%s domain`
+- `ip filter dynamic 2029 * %s,%s domain`
+- `ip filter dynamic 2035 172.16.0.0/16 61.114.182.53 filter 2035 in 2030`
+- `ip filter dynamic 2036 172.16.5.0/24 61.114.182.53 filter 2036 in 2031`
+- `ip filter dynamic 2037 172.16.15.0/24 61.114.182.53 filter 2037 in 2032`
+- `ip filter dynamic 2038 172.16.60.0/24 61.114.182.53 filter 2038 in 2033`
+- `ip filter dynamic 2045 172.16.0.0/16 61.114.182.54 filter 2045 in 2040`
+- `ip filter dynamic 2046 172.16.5.0/24 61.114.182.54 filter 2046 in 2041`
+- `ip filter dynamic 2047 172.16.15.0/24 61.114.182.54 filter 2047 in 2042`
+- `ip filter dynamic 2048 172.16.60.0/24 61.114.182.54 filter 2048 in 2043`
+- `ip filter dynamic 2055 172.16.0.0/16 61.114.186.0/25 filter 2055 in 2050`
+- `ip filter dynamic 2056 172.16.5.0/24 61.114.186.0/25 filter 2056 in 2051`
+- `ip filter dynamic 2057 172.16.15.0/24 61.114.186.0/25 filter 2057 in 2052`
+- `ip filter dynamic 2058 172.16.60.0/24 61.114.186.0/25 filter 2058 in 2053`
+- `ip filter dynamic 2059 172.16.80.0/22 61.114.186.0/25 filter 2059 in 2054`
+- `ip filter dynamic 2065 172.16.0.0/16 61.114.177.148 filter 2065 in 2060`
+- `ip filter dynamic 2066 172.16.5.0/24 61.114.177.148 filter 2066 in 2061`
+- `ip filter dynamic 2067 172.16.15.0/24 61.114.177.148 filter 2067 in 2062`
+- `ip filter dynamic 2068 172.16.60.0/24 61.114.177.148 filter 2068 in 2063`
+- `ip filter dynamic 2075 172.16.0.0/16 202.229.106.177 filter 2075 in 2070`
+- `ip filter dynamic 2076 172.16.5.0/24 202.229.106.177 filter 2076 in 2071`
+- `ip filter dynamic 2077 172.16.15.0/24 202.229.106.177 filter 2077 in 2072`
+- `ip filter dynamic 2078 172.16.60.0/24 202.229.106.177 filter 2078 in 2073`
+- `ip filter dynamic 2079 172.16.80.0/22 202.229.106.177 filter 2079 in 2074`
+- `ip filter dynamic 2085 %s * filter 2085 in 2080`
+- `ip filter dynamic 2086 %s * filter 2086 in 2081`
+- `ip filter dynamic 2087 172.16.15.0/24 * filter 2087 in 2082`
+- `ip filter dynamic 2088 172.16.0.0/16 * filter 2088 in 2083`
+- `ip filter dynamic 2089 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * filter 2089 in 2084`
+- `ip filter dynamic 2095 %s * filter 2095 in 2090`
+- `ip filter dynamic 2096 %s * filter 2096 in 2091`
+- `ip filter dynamic 2444 %s * filter 2444 in 2445`
+- `ip filter dynamic 3444 %s * filter 3444 out 3445`
+- `ip filter dynamic 2450 %s 61.114.186.0/25 filter 2450 in 2451`
+- `ip filter dynamic 3450 %s 61.114.186.0/25 filter 3450 out 3451`
+- `%s`
+- `%s`
+- `ip filter dynamic 101406 %s-%s %s udp`
+- `ip filter dynamic 101407 %s-%s * filter 101407 in 101402`
+- `ip filter dynamic 101408 %s-%s * domain`
+- `ip filter dynamic 101409 %s-%s * filter 101409 in 101404`
+- `ip filter dynamic 3025 172.16.0.0/16 %s,%s domain`
+- `ip filter dynamic 3026 172.16.5.0/24 %s,%s domain`
+- `ip filter dynamic 3027 172.16.15.0/24 %s,%s domain`
+- `ip filter dynamic 3028 172.16.60.0/24 %s,%s domain`
+- `ip filter dynamic 3029 * %s,%s domain`
+- `ip filter dynamic 3035 172.16.0.0/16 61.114.182.53 filter 3035 in 3030`
+- `ip filter dynamic 3036 172.16.5.0/24 61.114.182.53 filter 3036 in 3031`
+- `ip filter dynamic 3037 172.16.15.0/24 61.114.182.53 filter 3037 in 3032`
+- `ip filter dynamic 3038 172.16.60.0/24 61.114.182.53 filter 3038 in 3033`
+- `ip filter dynamic 3045 172.16.0.0/16 61.114.182.54 filter 3045 in 3040`
+- `ip filter dynamic 3046 172.16.5.0/24 61.114.182.54 filter 3046 in 3041`
+- `ip filter dynamic 3047 172.16.15.0/24 61.114.182.54 filter 3047 in 3042`
+- `ip filter dynamic 3048 172.16.60.0/24 61.114.182.54 filter 3048 in 3043`
+- `ip filter dynamic 3055 172.16.0.0/16 61.114.186.0/25 filter 3055 in 3050`
+- `ip filter dynamic 3056 172.16.5.0/24 61.114.186.0/25 filter 3056 in 3051`
+- `ip filter dynamic 3057 172.16.15.0/24 61.114.186.0/25 filter 3057 in 3052`
+- `ip filter dynamic 3058 172.16.60.0/24 61.114.186.0/25 filter 3058 in 3053`
+- `ip filter dynamic 3059 172.16.80.0/22 61.114.186.0/25 filter 3059 in 3054`
+- `ip filter dynamic 3065 172.16.0.0/16 61.114.177.148 filter 3065 in 3060`
+- `ip filter dynamic 3066 172.16.5.0/24 61.114.177.148 filter 3066 in 3061`
+- `ip filter dynamic 3067 172.16.15.0/24 61.114.177.148 filter 3067 in 3062`
+- `ip filter dynamic 3068 172.16.60.0/24 61.114.177.148 filter 3068 in 3063`
+- `ip filter dynamic 3075 172.16.0.0/16 202.229.106.177 filter 3075 in 3070`
+- `ip filter dynamic 3076 172.16.5.0/24 202.229.106.177 filter 3076 in 3071`
+- `ip filter dynamic 3077 172.16.15.0/24 202.229.106.177 filter 3077 in 3072`
+- `ip filter dynamic 3078 172.16.60.0/24 202.229.106.177 filter 3078 in 3073`
+- `ip filter dynamic 3079 172.16.80.0/22 202.229.106.177 filter 3079 in 3074`
+- `ip filter dynamic 3085 %s * filter 3085 in 3080`
+- `ip filter dynamic 3086 %s * filter 3086 in 3081`
+- `ip filter dynamic 3087 172.16.15.0/24 * filter 3087 in 3082`
+- `ip filter dynamic 3088 172.16.0.0/16 * filter 3088 in 3083`
+- `ip filter dynamic 3089 172.16.121.90-172.16.121.128,172.16.60.1-172.16.60.254 * filter 3089 in 3084`
+- `ip filter dynamic 3095 %s * filter 3095 in 3090`
+- `ip filter dynamic 3096 %s * filter 3096 in 3091`
+- `ip filter dynamic 3530 %s 172.16.60.0/24 ftp`
+- `ip filter dynamic 3550 %s 172.16.60.0/24 filter 3550 in 3555`
+- `ip filter dynamic 3590 %s 172.16.60.0/24 filter 3590 in 3595`
+- `ip filter dynamic 10210 172.16.21.1 192.168.210.3 ftp`
+- `ip filter dynamic 10211 172.16.21.1 192.168.210.4 ftp`
+- `ip filter dynamic 10665 * %s filter 10665 in 10660 10670 out 10675`
+- `ip filter dynamic 10615 172.16.60.0/24 172.16.60.0/24 filter 10615 in 10610 10620 out 10625`
+- `ip filter set xai_tunnel_lan2 out 10605 10615 dynamic 10615`
+- `ip filter set dk_pp_lan2 in 1 2 3 4 5 6 2010 10800 12600 12700`
+- ` 10000 10010 10020 10030`
+- ` 10500 10510 10520 10550 10560`
+- ` 10005 10015 10025 10035`
+- ` 10505 10525 10575`
+- `ip filter set dk_lan3_call out 1401 1406`
+- `ip filter set dk_lan3 in 3 4 3010 3420 3421`
+- ` 104 105 3442 3444 3446 3448 3422 3501 3521 3561 3581`
+- `%s%s%s%s%s%s%s%s`
+- ` 3801 3802 3803 3804`
+- ` 10650 10660 10670`
+- ` dynamic%s%s%s%s%s`
+- ` dynamic 3444`
+- `ip filter set dk_lan3 out 3 4 104 105 3015`
+- ` 3026 3427 3442 3443 3447 3449 3506 3526 3566 3586`
+- `%s%s%s%s%s`
+- ` 3425 3426`
+- `%s%s%s%s`
+- ` 3806 3807 3808 3809`
+- ` 3451 10655 10665 10675`
+- ` dynamic%s%s%s%s%s%s%s`
+- ` dynamic 3026`
+- `ip filter set dk_pp_lab in 9`
+- `ip filter set dk_pp_lab out 1 2 3 4 5 6 104 105 15`
+- `ip filter set getlog in 1 2 3 4 5 6 100`
+- `ip filter set getlog out 1 2 3 4 5 6 100`
+- `# URL filter configuration`
+- `url filter 1 pass download.windowsupdate.com`
+- `url filter 2 pass update.microsoft.com`
+- `url filter 3 pass windowsupdate.com`
+- `url filter 4 pass download.microsoft.com`
+- `url filter 5 pass ntservicepack.microsoft.com`
+- `url filter 6 pass wustat.windows.com`
+- `url filter 7 pass trendmicro.co.jp`
+- `url filter 8 pass trendmicro.co.com`
+- `url filter 9 reject * *`
+- `url filter 10 pass * %s`
+- `url filter 21 pass download.windowsupdate.com %s`
+- `url filter 22 pass update.microsoft.com %s`
+- `url filter 23 pass windowsupdate.com %s`
+- `url filter 24 pass download.microsoft.com %s`
+- `url filter 25 pass ntservicepack.microsoft.com %s`
+- `url filter 26 pass wustat.windows.com %s`
+- `url filter 27 pass trendmicro.co.jp %s`
+- `url filter 28 pass trendmicro.com %s`
+- `url filter 100 pass * *`
+
+## PutLanIp
+- `ip lan1 address %s`
+- `ip lan1 secondary address %s`
+- `rip use on`
+- `ip lan1 rip send on version 2`
+- `ip lan1 rip receive on version 2`
+- `ip lan1 proxyarp on`
+- `ip lan1 secure filter name %s`
+- `ip lan1 intrusion detection in on reject=on`
+- `ip lan1 nat descriptor 1000`
+- `ip lan1 tcp mss limit %d`
+- `ip lan2 rip send off`
+- `ip lan2 rip receive off`
+- `ip lan2 proxyarp off`
+- `ip lan2 intrusion detection in on reject=on`
+- `ip lan2 nat descriptor 2000`
+- `ip lan2 secure filter name dk_pp_lan2`
+- `ip lan2 address dhcp`
+- `ip lan2 address %s`
+- `lan type lan3 10-fdx`
+- `ip lan3 address %s`
+- `ip lan3 secure filter name %s`
+- `ip lan3 nat descriptor %d`
+- `ip lan3 address %s`
+- `ip lan3 address %s/29`
+- `ip lan3 secure filter name dk_lan3_call`
+- `ip lan3 rip send off`
+- `ip lan3 rip receive off`
+- `ip lan3 proxyarp off`
+- `ip lan3 intrusion detection in on reject=on`
+
+## PutIpRoute
+- `ip routing process normal`
+- `ip route 172.18.0.0/16 gateway 172.16.5.11`
+- `ip route default gateway pp %d`
+- `ip route %s gateway pp %d metric 2`
+- `ip route default gateway pp %d metric 2`
+- `ip route %s gateway pp %d metric 2`
+- `ip route %s gateway pp %d metric 2`
+- `ip route default gateway pp %d metric 2`
+- `ip route %s gateway pp %d metric 2`
+- `ip route %s gateway pp %d`
+- `ip route %s gateway pp %d`
+- `ip route %s gateway pp %d weight 999999999 hide gateway pp %d weight 1`
+- `ip route %s gateway pp %d metric 2`
+- `ip route default gateway pp %d metric 2`
+- `ip route %s gateway pp %d metric 2`
+- `ip route %s gateway %s weight 999999999 hide gateway pp %d weight 1`
+- `ip route %s gateway %s`
+- `ip route default gateway %s`
+- `ip route %s gateway %s`
+- `ip route 172.21.0.0/16 gateway tunnel %d  keepalive %d gateway tunnel %d weight 0`
+- `ip route 172.21.0.0/16 gateway tunnel %d`
+- `ip route %s gateway tunnel %d`
+- `ip keepalive %d icmp-echo 60 3 %s`
+- `ip route 210.227.65.146 gateway pp %d metric 2`
+- `ip route 122.103.88.162 gateway pp %d metric 2`
+- `ip route 172.21.0.0/16 gateway tunnel %d`
+- `ip route 122.103.88.162 gateway pp %d metric 2`
+- `ip route 10.0.240.0/24 gateway tunnel %d`
+- `ip route default gateway pp %d metric 2`
+- `ip route %s gateway %s %d`
+- `ip route %s gateway pp %d metric 2`
+- `ip route %s gateway pp %d`
+- `ip route %s gateway tunnel %d`
+- `ip route %s gateway pp %d`
+- `ip route %s gateway tunnel %d`
+- `ip route %s gateway pp %d metric 2`
+- `ip route %s gateway pp %d metric 2`
+- `ip route %s gateway tunnel %d`
+- `ip route %s gateway pp %d`
+- `ip route %s gateway pp %d`
+- `ip route %s gateway tunnel %d`
+- `ip route %s gateway tunnel %d`
+- `ip route %s gateway %s`
+- `ip route %s gateway %s`
+- `ip route %s gateway tunnel %d`
+- `ip route 210.227.65.146 gateway pp %d metric 2`
+- `ip route 122.103.88.162 gateway pp %d metric 2`
+- `ip route 192.168.210.3 gateway tunnel %d`
+- `ip route 192.168.210.4 gateway tunnel %d`
+- `ip route 26.26.26.26 gateway pp %d metric 2`
+- `ip route default gateway pp %d metric 2`
+- `ip route %s gateway pp %d metric 2`
+- `ip route %s gateway %s`
+- `ip route %d.%d.%d.%d gateway pp anonymous metric 2`
+- `ip icmp parameter-problem send off`
+- `ip route 10.0.192.0/20 gateway pp anonymous metric 2`
+- `ip route 10.0.208.0/20 gateway pp anonymous metric 2`
+- `ip route 10.0.192.0/20 gateway pp anonymous metric 2`
+- `ip route 10.0.208.0/20 gateway tunnel %d`
+- `ip route 10.0.224.0/20 gateway tunnel %d`
+- `ip route %s gateway pp %d`
+- `ip route default gateway pp %d metric 2`
+- `ip route 10.0.192.0/24 gateway pp anonymous metric 2`
+- `ip route 10.0.208.0/24 gateway tunnel %d`
+- `ip route 10.0.224.0/24 gateway tunnel %d`
+- `ip route 10.0.192.0/24 gateway pp anonymous metric 2`
+- `ip route 10.0.208.0/24 gateway pp anonymous metric 2`
+- `ip route 10.0.192.0/20 gateway pp anonymous metric 2`
+- `ip route 10.0.208.0/20 gateway tunnel %d`
+- `ip route 10.0.224.0/20 gateway tunnel %d`
+- `ip route %s gateway pp %d`
+- `ip icmp parameter-problem send off`
+- `ip tos supersede 1 normal precedence=0 200`
+- `ip icmp echo-reply send-only-linkup on`
+
+## PutNatOther
+- `nat descriptor log on`
+- `nat descriptor masquerade ttl hold all`
+- `nat descriptor type 5000 masquerade`
+- `nat descriptor masquerade incoming 5000 discard`
+- `nat descriptor type 8000 masquerade`
+- `nat descriptor address outer 8000 %s`
+- `nat descriptor address inner 8000 %d.%d.%d.%d-%d.%d.%d.%d`
+- `nat descriptor static 8000 60 %s=%d.%d.%d.%d %d`
+- `nat descriptor masquerade static 2000 3 %s tcp 1723`
+- `nat descriptor masquerade static 2000 4 %s gre`
+- `nat descriptor type 2 masquerade`
+- `nat descriptor type 3 masquerade`
+- `nat descriptor masquerade incoming 3 discard`
+- `nat descriptor type 4 nat`
+- `nat descriptor type 1000 nat`
+- `nat descriptor address outer 1000 172.16.252.1`
+- `nat descriptor address inner 1000 %s`
+- `nat descriptor static 1000 252 172.16.252.1=%s 1`
+- `nat descriptor type 2000 masquerade`
+- `nat descriptor address outer 2000 %s`
+- `nat descriptor masquerade static 2000 1 %s udp 500`
+- `nat descriptor masquerade static 2000 2 %s esp`
+- `nat descriptor masquerade static 2000 6 %s udp 4500`
+- `nat descriptor masquerade static 2000 7 %s tcp %d`
+- `nat descriptor type 3000 masquerade`
+- `nat descriptor address outer 3000 %s`
+- `nat descriptor address inner 3000 %d.%d.%d.%d-%d.%d.%d.%d`
+- `nat descriptor static 3000 60 %s=172.16.60.1 %d`
+- `nat descriptor masquerade static 3000 1 %s udp 500`
+- `nat descriptor masquerade static 3000 2 %s esp`
+- `nat descriptor masquerade static 3000 3 %s udp domain`
+- `nat descriptor masquerade static 3000 4 %s tcp www`
+- `nat descriptor masquerade static 3000 5 %s tcp http`
+- `nat descriptor type 2012 masquerade`
+- `nat descriptor address outer 2012 %s`
+- `nat descriptor address inner 2012 auto`
+- `nat descriptor static 2012 2 %s=%s 1`
+- `nat descriptor static 2012 3 %s=172.16.60.1 1`
+- `nat descriptor static 2012 4 %s=172.16.1.1 1`
+- `nat descriptor static 2012 5 %s=172.16.21.1 1`
+- `nat descriptor static 2012 6 %s=172.16.80.1 1`
+- `nat descriptor static 2012 7 %s=172.16.15.%d 1`
+- `nat descriptor static 2012 8 %s=172.16.52.8 1`
+- `nat descriptor static 2012 9 %s=172.16.50.2 1`
+- `nat descriptor static 2012 10 %s=172.16.20.1 1`
+- `nat descriptor static 2012 11 %s=172.16.20.2 1`
+- `nat descriptor static 2012 12 %s=172.16.110.1 1`
+- `nat descriptor static 2012 13 %s=172.16.110.2 1`
+- `nat descriptor static 2012 14 %s=172.16.122.1 1`
+- `nat descriptor static 2012 15 %s=172.16.15.100 1`
+- `nat descriptor type 12 masquerade`
+- `nat descriptor type 3013 masquerade`
+- `nat descriptor address outer 3013 %s`
+- `nat descriptor address inner 3013 auto`
+- `nat descriptor masquerade static 3013 1 %s udp 500`
+- `nat descriptor masquerade static 3013 2 %s tcp 4500`
+- `nat descriptor masquerade static 2000 3 %s tcp 1723`
+- `nat descriptor masquerade static 2000 4 %s gre`
+- `nat descriptor masquerade static 2000 5 %s udp 4500`
+- `nat descriptor sip 2000 off`
+- `%d.%d.%d.%d`
+- `/%d`
+
+## PutNat_C
+- `nat descriptor log on`
+- `nat descriptor masquerade ttl hold all`
+- `nat descriptor type 1 nat`
+- `nat descriptor address outer 1 %d.%d.%d.%d`
+- `nat descriptor address inner 1 %s`
+- `nat descriptor static 1 %d %d.%d.%d.%d=172.16.%d.%d %d`
+- `nat descriptor static 1 249 %d.%d.249.1=%s 255`
+
+## PutNat_R
+- `nat descriptor log on`
+- `nat descriptor masquerade ttl hold all`
+- `nat descriptor type 1 nat`
+- `nat descriptor address outer 1 %d.%d.%d.%d`
+- `nat descriptor address inner 1 %s`
+- `nat descriptor static 1 %d 10.0.%d.%d=172.16.%d.%d %d`
+
+## PutNat_H
+- `nat descriptor log on`
+- `nat descriptor masquerade ttl hold all`
+
+## PutPpHead
+- `rip use on`
+- `pp disable all`
+
+## PutPp
+- `### PP %d ###`
+- `pp select %d`
+- `pp bind tunnel%d`
+- `pp bind bri1`
+- `isdn remote address call %s`
+- `isdn remote address arrive %s`
+- `isdn remote address call %s`
+- `isdn disconnect time 15`
+- `isdn disconnect input time 30`
+- `isdn disconnect output time 30`
+- `pp auth accept pap chap`
+- `pp auth myname tao daikoku`
+- `ppp ipcp ipaddress on`
+- `ip pp nat descriptor 2`
+- `isdn remote address call %s`
+- `isdn disconnect time 15`
+- `isdn disconnect input time 30`
+- `isdn disconnect output time 30`
+- `ip pp nat descriptor 4`
+- `pp auth accept pap chap`
+- `ppp ipcp ipaddress on`
+- `pp auth myname %s %s`
+- `isdn remote address call %s`
+- `isdn disconnect time 480`
+- `isdn disconnect input time 720`
+- `isdn disconnect output time 720`
+- `isdn forced disconnect time %d`
+- `ip pp secure filter name %s`
+- `ip pp intrusion detection in on reject=on`
+- `ip pp nat descriptor %d`
+- `pp auth accept pap chap`
+- `ppp ipcp ipaddress on`
+- `pp auth myname %s %s`
+- `ppp ipcp msext off`
+- `isdn remote address call 0422799015`
+- `isdn disconnect time 15`
+- `isdn disconnect input time 30`
+- `isdn disconnect output time 30`
+- `ip pp nat descriptor 12`
+- `pp auth accept chap`
+- `ppp ipcp ipaddress on`
+- `pp auth myname %s %s`
+- `pp backup none`
+- `pp always-on off`
+- `pppoe use lan2`
+- `pppoe auto connect on`
+- `pppoe auto disconnect on`
+- `pppoe disconnect time 30`
+- `ip pp mtu %d`
+- `ip pp intrusion detection in on reject=on`
+- `pp auth accept pap chap`
+- `ip pp secure filter name %s`
+- `pp auth myname %s %s`
+- `ip pp nat descriptor %d`
+- `ppp lcp mru on 1454`
+- `ppp ccp type none`
+- `ppp ipcp msext off`
+- `ppp ipcp ipaddress on`
+- `url pp filter out 10 21 22 23 24 25 26 27 28`
+- `pp backup none`
+- `pppoe use lan2`
+- `pppoe auto connect on`
+- `pppoe auto disconnect on`
+- `pppoe disconnect time off`
+- `ip pp mtu %d`
+- `ip pp intrusion detection in on reject=on`
+- `ip pp nat descriptor 2000`
+- `pp auth accept pap chap`
+- `pp always-on %s`
+- `ip pp secure filter name dk_pp_lan2`
+- `ip pp address %d.%d.%d.%d/32`
+- `pp auth myname %s %s`
+- `ip pp address %d.%d.%d.%d/32`
+- `pp auth myname %s %s`
+- `ppp lcp mru on 1454`
+- `ppp ccp type none`
+- `url pp filter out 10 21 22 23 24 25 26 27 28`
+- `isdn remote address arrive %s`
+- `pp auth request chap-pap`
+- `pp auth username openuser openuser`
+- `ip pp remote address 192.168.%d.%d`
+- `ip pp remote address 172.16.60.%d`
+- `pp always-on on`
+- `pp auth request mschap-v2`
+- `pp auth username openuser openuser`
+- `ppp ccp type mppe-any`
+- `ip pp mtu 1280`
+- `pptp service type server`
+- `ip pp nat descriptor 1`
+- `ip pp rip listen off`
+- `pp disable %d`
+- `pp enable %d`
+
+## PutPpAnonymous
+- `no ip route 10.0.192.0/20`
+- `pp select anonymous`
+- `no ip pp rip send`
+- `no ip pp rip receive`
+- `no ip pp nat descriptor`
+- `no pp auth username %s`
+- `pp bind tunnel%d-tunnel%d`
+- `pp auth request mschap-v2`
+- `pp auth username %s %s`
+- `ppp ipcp ipaddress on`
+- `ppp ipcp msext on`
+- `ip pp remote address pool 172.16.60.%d-172.16.60.%d`
+- `ip pp mtu 1258`
+- `pp enable anonymous`
+- `pp select anonymous`
+- `pp bind bri1`
+- `pp auth request pap`
+- `pp auth username * *`
+- `ip pp rip send off`
+- `ip pp rip receive off`
+- `pp enable anonymous`
+- `pp select anonymous`
+- `ip pp rip send off`
+- `ip pp rip receive off`
+- `pp bind bri1`
+- `ip pp nat descriptor 1`
+- `pp auth request pap`
+- `pp auth username * *`
+- `pp auth request chap`
+- `pp enable anonymous`
+
+## PutTunnel
+- `\ntunnel disable all`
+- `### TUNNEL %d ###`
+- `tunnel select %d`
+- `tunnel encapsulation pptp`
+- `tunnel endpoint address %s`
+- `tunnel enable %d`
+- `tunnel encapsulation ipsec`
+- `ipsec tunnel %d`
+- `ipsec sa policy %d %d esp aes-cbc md5-hmac`
+- `ipsec ike duration isakmp-sa %d 28800`
+- `ipsec ike keepalive log %d off`
+- `ipsec ike keepalive use %d on heartbeat`
+- `ipsec ike local address %d %s`
+- `ipsec ike local name %d %s key-id`
+- `ipsec ike pre-shared-key %d text %sDN%s`
+- `ipsec ike remote address %d %s`
+- `tunnel backup tunnel %d`
+- `ip tunnel nat descriptor 3013`
+- `ip tunnel tcp mss limit auto`
+- `ip tunnel secure filter in 9`
+- `ip tunnel secure filter out 10210 10211 dynamic 10210 10211`
+- `ipsec sa policy %d %d esp 3des-cbc sha-hmac`
+- `ipsec ike duration ipsec-sa %d 28800`
+- `ipsec ike encryption %d 3des-cbc`
+- `ipsec ike group %d modp1024`
+- `ipsec ike hash %d sha`
+- `ipsec ike keepalive use %d on heartbeat 60 10`
+- `ipsec ike local address %d %s`
+- `ipsec ike pfs %d on`
+- `ipsec ike pre-shared-key %d text %s`
+- `ipsec ike remote address %d %s`
+- `ipsec ike duration ipsec-sa %d 10800`
+- `ipsec ike duration isakmp-sa %d 3600`
+- `ipsec ike encryption %d aes-cbc`
+- `ipsec ike group %d modp768 modp1024`
+- `ipsec ike hash %d sha`
+- `ipsec ike keepalive use %d %s`
+- `ipsec ike local address %d %s`
+- `ipsec ike local id %d %s/%d`
+- `ipsec ike pfs %d on`
+- `ipsec ike pre-shared-key %d text wh1+eb0@rd`
+- `ipsec ike remote address %d %s`
+- `ipsec ike remote id %d %s`
+- `ipsec sa policy %d %d esp aes-cbc sha-hmac`
+- `tunnel backup pp %d`
+- `tunnel backup tunnel %d switch-interface=on`
+- `tunnel backup pp %d switch-router=on`
+- `tunnel backup none`
+- `ip tunnel rip send off`
+- `ip tunnel rip receive off`
+- `ip tunnel nat descriptor 2012`
+- `ip tunnel nat descriptor 1`
+- `tunnel enable %d`
+- `### TUNNEL %d ###`
+- `tunnel select %d`
+- `tunnel encapsulation ipsec`
+- `ipsec tunnel %d`
+- `ipsec sa policy %d %d esp aes-cbc sha-hmac`
+- `ipsec ike duration ipsec-sa %d 28800`
+- `ipsec ike encryption %d aes-cbc`
+- `ipsec ike group %d modp1024`
+- `ipsec ike hash %d sha`
+- `ipsec ike keepalive log %d off`
+- `ipsec ike keepalive use %d on heartbeat 60 10`
+- `ipsec ike local address %d %s`
+- `ipsec ike pfs %d on`
+- `ipsec ike pre-shared-key %d text CallCentre`
+- `ipsec ike remote address %d %s`
+- `ip tunnel address %s`
+- `ip tunnel rip send off`
+- `ip tunnel rip receive off`
+- `tunnel enable %d`
+- `### TUNNEL %d ###`
+- `tunnel select %d`
+- `tunnel encapsulation ipsec`
+- `ipsec tunnel %d`
+- `ipsec sa policy %d %d esp aes-cbc sha-hmac`
+- `ipsec ike duration ipsec-sa %d 28800`
+- `ipsec ike encryption %d aes-cbc`
+- `ipsec ike group %d modp1024`
+- `ipsec ike hash %d sha`
+- `ipsec ike keepalive log %d off`
+- `ipsec ike keepalive use %d on heartbeat 60 10`
+- `ipsec ike local address %d %s`
+- `ipsec ike pfs %d on`
+- `ipsec ike pre-shared-key %d text CallCentre`
+- `ipsec ike remote address %d %s`
+- `ip tunnel address %s`
+- `ip tunnel rip send off`
+- `ip tunnel rip receive off`
+- `tunnel enable %d`
+- `### TUNNEL %d ###`
+- `tunnel select %d`
+- `tunnel encapsulation ipsec`
+- `ipsec tunnel %d`
+- `ipsec sa policy %d %d esp aes-cbc sha-hmac`
+- `ipsec ike duration ipsec-sa %d 28800`
+- `ipsec ike encryption %d aes-cbc`
+- `ipsec ike group %d modp1024`
+- `ipsec ike hash %d sha`
+- `ipsec ike keepalive use %d on heartbeat 10 2`
+- `ipsec ike local address %d %s`
+- `ipsec ike pfs %d on`
+- `ipsec ike pre-shared-key %d text *`
+- `ipsec ike remote address %d any`
+- `ipsec ike remote name %d *`
+- `tunnel enable %d`
+- `### TUNNEL %d ###`
+- `tunnel select %d`
+- `ipsec tunnel %d`
+- `ipsec sa policy %d %d esp 3des-cbc md5-hmac`
+- `ipsec ike pre-shared-key %d text *`
+- `ipsec ike remote address %d any`
+- `ipsec ike remote name %d *`
+- `ipsec ike duration ipsec-sa %d 10800`
+- `ipsec ike duration isakmp-sa %d 3600`
+- `ipsec ike encryption %d aes-cbc`
+- `ipsec ike group %d modp768 modp1024`
+- `ipsec ike hash %d sha`
+- `ipsec ike keepalive use %d off`
+- `ipsec ike local address %d %s`
+- `ipsec ike local id %d %s/%d`
+- `ipsec ike pfs %d on`
+- `ipsec ike pre-shared-key %d text *`
+- `ipsec ike remote address %d %s`
+- `ipsec ike remote id %d 10.0.224.0/20`
+- `ipsec sa policy %d %d esp aes-cbc sha-hmac`
+- `tunnel backup none`
+- `ip tunnel rip send off`
+- `ip tunnel rip receive off`
+- `ip tunnel nat descriptor 1`
+- `tunnel enable %d`
+- `### TUNNEL %d ###`
+- `tunnel select %d`
+- `tunnel encapsulation ipsec`
+- `ipsec tunnel %d`
+- `ipsec sa policy %d %d esp aes-cbc sha-hmac`
+- `ipsec ike duration ipsec-sa %d 28800`
+- `ipsec ike encryption %d aes-cbc`
+- `ipsec ike group %d modp1024`
+- `ipsec ike hash %d sha`
+- `ipsec ike local address %d %s`
+- `ipsec ike pfs %d on`
+- `ipsec ike pre-shared-key %d text %s`
+- `ipsec ike remote address %d any`
+- `ipsec ike remote name %d *`
+- `ipsec ike keepalive use %d on heartbeat 10 2`
+- `ip tunnel rip send off`
+- `ip tunnel rip receive off`
+- `ip tunnel nat descriptor 1000`
+- `tunnel enable %d`
+- `### TUNNEL %d ###`
+- `tunnel select %d`
+- `tunnel encapsulation ipsec`
+- `ipsec tunnel %d`
+- `ipsec sa policy %d %d esp 3des-cbc sha-hmac`
+- `ipsec ike duration ipsec-sa %d 28800`
+- `ipsec ike encryption %d 3des-cbc`
+- `ipsec ike group %d modp1024`
+- `ipsec ike hash %d sha`
+- `ipsec ike keepalive use %d on heartbeat 60 10`
+- `ipsec ike local address %d %s`
+- `ipsec ike pfs %d on`
+- `ipsec ike pre-shared-key %d text %s`
+- `ipsec ike remote address %d %s`
+- `ip tunnel rip send off`
+- `ip tunnel rip receive off`
+- `ip tunnel nat descriptor 2012`
+- `tunnel enable %d`
+- `tunnel select %d`
+- `tunnel encapsulation l2tp`
+- `ipsec tunnel 1%d`
+- `ipsec sa policy 1%d %d esp aes-cbc sha-hmac`
+- `ipsec ike keepalive use %d off`
+- `ipsec ike nat-traversal %d on`
+- `ipsec ike pre-shared-key %d text %s`
+- `ipsec ike remote address %d any`
+- `l2tp tunnel auth off`
+- `l2tp tunnel disconnect time off`
+- `l2tp keepalive use on`
+- `ip tunnel tcp mss limit auto`
+- `ip tunnel secure filter name xai_tunnel_lan2`
+- `tunnel enable %d`
+
+## PutIpsec
+- `ipsec transport %d 1%d udp 1701`
+
+## PutOther
+- `nat descriptor log on`
+- `syslog info on`
+- `syslog notice on`
+- `syslog debug off`
+- `tftp host any`
+- `ipsec auto refresh on`
+- `dhcp server rfc2131 compliant except remain-silent`
+- `dns server %s %s`
+- `no dns server pp`
+- `dns server %s %s`
+- `dns server %s %s`
+- `dns server pp %d`
+- `dns private address spoof on`
+- `schedule at 1 */* 6:00 * ntpdate 172.31.191.62`
+- `dns service recursive`
+- `dhcp service server`
+- `dhcp scope 1 %s-%s/16`
+- `no dhcp service`
+- `no dhcp scope 1`
+- `dhcp scope option 1 dns=172.16.5.1`
+- `dhcp service server`
+- `dhcp scope 2 %s-%s/29`
+- `dhcp scope option 2 dns=%s`
+- `pptp service on`
+- `ip stealth pp %d`
+- `l2tp service on`
+- `schedule at 2 startup * lua /xai_check.lua`
+- `schedule at 3 */* 04:00:00 * terminate lua all`
+- `schedule at 4 */* 04:00:10 * lua /xai_check.lua`
+- `# LIFT_PHASE=%d`
+- `ip wan1 address dhcp`
+- `ip wan1 secure filter name dk_pp_lan2`
+- `ip wan1 intrusion detection in on reject=on`
+- `ip wan1 nat descriptor 2000`
+- `wan1 bind usb1`
+- `wan1 always-on on`
+- `wan1 auto connect on`
+- `wan1 disconnect time off`
+- `wan1 disconnect input time off`
+- `wan1 disconnect output time off`
+- `wan1 access limit length off`
+- `wan1 access limit time off`
+- `mobile use usb1 on`
+- `ip wan1 mtu 1454`
+- `wan1 auth myname %s %s`
+- `wan1 access-point name %s`
+- `description 10 \`
+- `description 12 \`
+- `description 13 \`
+- `description 14 \`
+- `description 1 \`
+- `save`
+
+## PutRevUpFile
+- `%s\\%s\\%s`
+- `%s%s\\%s`
+- `cmd /c tftp -i %s put %s exec > %s`
+- `%d.%d.%d.%d`
+- `%s\\%s\\%s`
+- `%s%s\\%s`
+- `%s\\%s\\%s\\router\\routerMukou.lua`
+- `%s\\%s\\%s\\router\\routerChkMukou.lua`
+- `%s\\%s\\%s\\router\\routerMukou.prm`
+- `%s\\%s\\%s\\router\\router.lua`
+- `%s\\%s\\%s\\router\\routerChk.lua`
+- `%s\\%s\\%s\\router\\router%02dW.prm`
+
+## GetTftp
+- `%s`
+- `%d.%d.%d.%d`
+
+## WriteRegstryData
+- `%d.%d.%d.%d`
+
