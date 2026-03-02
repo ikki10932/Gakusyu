@@ -1,5 +1,5 @@
 terminal:
-  policy: always # auto | always | never
+  policy: auto # auto | always | never
   allow:
     - "git pull origin main"
     - "git add ."
